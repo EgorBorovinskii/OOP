@@ -8,7 +8,7 @@ public class Logic {
         while (true)
         {
             System.out.println(Messages.categories);
-            String message = in.nextLine();
+            String message = in.nextLine().toLowerCase();
             switch (message)
             {
                 case "/exit":
@@ -21,17 +21,17 @@ public class Logic {
                     Help();
                     break;
                 }
-                case "Экономика":
+                case "экономика":
                 {
                     Economy.MainEconomy();
                     break;
                 }
-                case "Армия":
+                case "армия":
                 {
                     Army.MainArmy();
                     break;
                 }
-                case "Население":
+                case "население":
                 {
                     Population.MainPopulation();
                     break;
