@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Population {
     public static Scanner in = new Scanner(System.in);
+    String st = new String("НАЧАЛЬНИК ХУЕСОС");
 
     public static int loyalty = 20;
     public static int needMoney = 5;
