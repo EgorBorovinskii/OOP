@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Logic {
+    public static long startTime;
+
     public static void Start()
     {
         System.out.println(Messages.firstMessage);
@@ -8,6 +10,7 @@ public class Logic {
         while (true)
         {
             System.out.println(Messages.categories);
+            startTime = System.currentTimeMillis();
             String message = in.nextLine().toLowerCase();
             switch (message)
             {

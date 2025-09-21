@@ -16,12 +16,22 @@ public class Economy {
         System.out.println(money);
     }
 
+    public static void Check()
+    {
+        long endTime = System.currentTimeMillis();
+        if (endTime - Logic.startTime > 20000)
+        {
+            System.out.println("Yes");
+        }
+    }
+
     public static void MainEconomy()
     {
         System.out.println(Messages.categoriesForEconomy);
         String message = in.nextLine();
         while (!message.equals("/back"))
         {
+            Check();
             switch (message)
             {
                 case "/help":
