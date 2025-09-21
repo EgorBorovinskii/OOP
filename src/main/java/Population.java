@@ -29,8 +29,20 @@ public class Population {
     public static void MainPopulation()
     {
         System.out.println(Messages.categoriesForPopulation);
-        String message = in.nextLine();
+        String message = in.nextLine().toLowerCase();
         while (!message.equals("/back")) {
+            switch ((message)){
+                case "1":
+                {
+                    message = "Увеличить лояльность";
+                    break;
+                }
+                case "2":
+                {
+                    message = "Показать уровень лояльности";
+                    break;
+                }
+            }
             switch (message) {
                 case "/help": {
                     Logic.Help();
@@ -53,6 +65,7 @@ public class Population {
                     break;
                 }
             }
+            EventCheck.Check();
             message = in.nextLine();
         }
     }

@@ -16,4 +16,6 @@ public class Messages {
     public static String categoriesForEconomy = "Добавить деньги \tПоказать количество денег";
     public static String categoriesForArmy = "Увеличить силу \tПоказать уровень силы";
     public static String categoriesForPopulation = "Увеличить лояльность \tПоказать уровень лояльности";
+
+    public static String event = "Время события!";
 }
