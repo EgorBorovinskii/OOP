@@ -29,9 +29,21 @@ public class Army {
     public static void MainArmy()
     {
         System.out.println(Messages.categoriesForArmy);
-        String message = in.nextLine();
+        String message = in.nextLine().toLowerCase();
         while (!message.equals("/back"))
         {
+            switch ((message)){
+                case "1":
+                {
+                    message = "Увеличить силу";
+                    break;
+                }
+                case "2":
+                {
+                    message = "Показать уровень силы";
+                    break;
+                }
+            }
             switch (message)
             {
                 case "/help":
@@ -60,6 +72,7 @@ public class Army {
                     break;
                 }
             }
+            EventCheck.Check();
             message = in.nextLine();
         }
     }

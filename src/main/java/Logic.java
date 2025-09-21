@@ -12,6 +12,22 @@ public class Logic {
             System.out.println(Messages.categories);
             startTime = System.currentTimeMillis();
             String message = in.nextLine().toLowerCase();
+            switch ((message)){
+                case "1":
+                {
+                    message = "экономика";
+                    break;
+                }
+                case "2":
+                {
+                    message = "армия";
+                    break;
+                }
+                case "3": {
+                    message = "население";
+                    break;
+                }
+            }
             switch (message)
             {
                 case "/exit":

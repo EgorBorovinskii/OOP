@@ -16,22 +16,24 @@ public class Economy {
         System.out.println(money);
     }
 
-    public static void Check()
-    {
-        long endTime = System.currentTimeMillis();
-        if (endTime - Logic.startTime > 20000)
-        {
-            System.out.println("Yes");
-        }
-    }
-
     public static void MainEconomy()
     {
         System.out.println(Messages.categoriesForEconomy);
-        String message = in.nextLine();
+        String message = in.nextLine().toLowerCase();
         while (!message.equals("/back"))
         {
-            Check();
+            switch ((message)){
+                case "1":
+                {
+                    message = "Добавить деньги";
+                    break;
+                }
+                case "2":
+                {
+                    message = "Показать количество денег";
+                    break;
+                }
+            }
             switch (message)
             {
                 case "/help":
@@ -60,6 +62,7 @@ public class Economy {
                     break;
                 }
             }
+            EventCheck.Check();
             message = in.nextLine();
         }
     }
