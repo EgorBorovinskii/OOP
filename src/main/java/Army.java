@@ -77,6 +77,7 @@ public class Army {
                 }
             }
             EventCheck.Check();
+            Money.addMoney();
             message = in.nextLine();
         }
     }

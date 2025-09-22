@@ -8,7 +8,7 @@ public class UserData {
         private Population population;
 
         User() {
-            economy = new Economy(20, 5, 10, 10);
+            economy = new Economy(20,  10, 10);
             army = new Army(0, 5);
             population = new Population(10, 1);
         }

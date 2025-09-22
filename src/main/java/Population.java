@@ -70,6 +70,7 @@ public class Population {
                 }
             }
             EventCheck.Check();
+            Money.addMoney();
             message = in.nextLine();
         }
     }
