@@ -1,13 +1,11 @@
 import java.util.Scanner;
 
 public class Army {
-    public static Scanner in = new Scanner(System.in);
+    private int power = 10;
+    private int needMoney = 5;
+    private int powerIncrease = 5;
 
-    public static int power = 10;
-    public static int needMoney = 5;
-    public static int powerIncrease = 5;
-
-    public static void IncreasePower()
+    private void IncreasePower()
     {
         if (Economy.money < needMoney)
         {
@@ -21,13 +19,14 @@ public class Army {
         }
     }
 
-    public static void ShowPower()
+    private void ShowPower()
     {
         System.out.println(power);
     }
 
-    public static void MainArmy()
+    private MainArmy()
     {
+        Scanner in = new Scanner(System.in);
         System.out.println(Messages.categoriesForArmy);
         String message = in.nextLine().toLowerCase();
         while (!message.equals("/back"))
