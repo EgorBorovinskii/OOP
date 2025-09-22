@@ -1,13 +1,19 @@
 import java.util.Scanner;
 
 public class Population {
-    public static Scanner in = new Scanner(System.in);
+    private static Scanner in = new Scanner(System.in);
 
-    public static int loyalty = 20;
-    public static int needMoney = 5;
-    public static int loyaltyIncrease = 5;
+    private int loyalty;
+    private int needMoney;
+    private int loyaltyIncrease;
 
-    public static void IncreaseLoyalty()
+    Population(int loayl, int need, int inc){
+        this.loyalty = loayl;
+        this.needMoney = need;
+        this.loyaltyIncrease = inc;
+    }
+
+    private void IncreaseLoyalty()
     {
         if (Economy.money < needMoney)
         {
@@ -21,12 +27,12 @@ public class Population {
         }
     }
 
-    public static void ShowLoyalty()
+    private void ShowLoyalty()
     {
         System.out.println(loyalty);
     }
 
-    public static void MainPopulation()
+    public void MainPopulation()
     {
         System.out.println(Messages.categoriesForPopulation);
         String message = in.nextLine().toLowerCase();
