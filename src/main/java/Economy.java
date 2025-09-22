@@ -4,10 +4,10 @@ public class Economy {
     private int money;
     private int moneyIncrease;
 
-    Economy(int mone, int moneyIncr)
+    Economy(int _money, int money_Increase)
     {
-        this.money = mone;
-        this.moneyIncrease = moneyIncr;
+        this.money = _money;
+        this.moneyIncrease = money_Increase;
     }
 
     public int getMoney()

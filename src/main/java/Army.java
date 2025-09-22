@@ -1,9 +1,16 @@
 import java.util.Scanner;
 
 public class Army {
-    private int power = 10;
-    private int needMoney = 5;
-    private int powerIncrease = 5;
+    private int power;
+    private int needMoney;
+    private int powerIncrease;
+
+    Army(int _power, int need_Money, int power_Increase)
+    {
+        this.power = _power;
+        this.needMoney = need_Money;
+        this.powerIncrease = power_Increase;
+    }
 
     private void IncreasePower()
     {
