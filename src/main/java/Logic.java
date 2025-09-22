@@ -28,7 +28,7 @@ public class Logic {
                     break;
                 }
                 case "4":{
-                    message = "смена пользователя";
+                    message = "сменить пользователя";
                 }
             }
             switch (message)
@@ -58,8 +58,12 @@ public class Logic {
                     UserData.currentUser.getPopulation().MainPopulation();
                     break;
                 }
-                case "смена пользователя":{
-                    //тебе дописать
+                case "сменить пользователя":
+                {
+                    System.out.println(Messages.whatIsYourName);
+                    nickname = in.nextLine();
+                    data.userChange(nickname);
+                    break;
                 }
                 default:
                 {
