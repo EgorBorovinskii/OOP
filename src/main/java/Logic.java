@@ -3,8 +3,11 @@ import java.util.Scanner;
 public class Logic {
     public static void Start()
     {
-        System.out.println(Messages.firstMessage);
+        UserData user = new UserData();
+        System.out.println(Messages.firstMessage + Messages.whatIsYourName);
         Scanner in = new Scanner(System.in);
+        String nickname = in.nextLine();
+        user.userChange(nickname);
         while (true)
         {
             System.out.println(Messages.categories);

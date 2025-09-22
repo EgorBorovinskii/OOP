@@ -7,10 +7,10 @@ public class Population {
     private int needMoney;
     private int loyaltyIncrease;
 
-    Population(int loayl, int need, int inc){
-        this.loyalty = loayl;
-        this.needMoney = need;
-        this.loyaltyIncrease = inc;
+    Population(int _loyalty, int need_Money, int loyalty_Increase){
+        this.loyalty = _loyalty;
+        this.needMoney = need_Money;
+        this.loyaltyIncrease = loyalty_Increase;
     }
 
     private void IncreaseLoyalty()
