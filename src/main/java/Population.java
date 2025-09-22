@@ -4,25 +4,23 @@ public class Population {
     private static Scanner in = new Scanner(System.in);
 
     private int loyalty;
-    private int needMoney;
     private int loyaltyIncrease;
 
-    Population(int _loyalty, int need_Money, int loyalty_Increase){
+    Population(int _loyalty, int loyalty_Increase){
         this.loyalty = _loyalty;
-        this.needMoney = need_Money;
         this.loyaltyIncrease = loyalty_Increase;
     }
 
     private void IncreaseLoyalty()
     {
-        if (Economy.money < needMoney)
+        if (UserData.currentUser.getEconomy().getMoney() < UserData.currentUser.getEconomy().getMoneyForLoyality())
         {
             System.out.println(Messages.notEnoughMoney);
-            System.out.println(Messages.needMoney + ": " + needMoney);
+            System.out.println(Messages.needMoney + ": " + UserData.currentUser.getEconomy().getMoneyForLoyality());
         }
         else
         {
-            Economy.money -= needMoney;
+            UserData.currentUser.getEconomy().buyLoyality();
             loyalty += loyaltyIncrease;
         }
     }

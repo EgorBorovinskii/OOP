@@ -1,17 +1,16 @@
 import java.util.Scanner;
 
 public class Logic {
-    public static void Start()
+    public void Start()
     {
-        UserData user = new UserData();
+        UserData data = new UserData();
         System.out.println(Messages.firstMessage + Messages.whatIsYourName);
         Scanner in = new Scanner(System.in);
         String nickname = in.nextLine();
-        user.userChange(nickname);
+        data.userChange(nickname);
         while (true)
         {
             System.out.println(Messages.categories);
-            startTime = System.currentTimeMillis();
             String message = in.nextLine().toLowerCase();
             switch ((message)){
                 case "1":
@@ -28,6 +27,9 @@ public class Logic {
                     message = "население";
                     break;
                 }
+                case "4":{
+                    message = "смена пользователя";
+                }
             }
             switch (message)
             {
@@ -43,18 +45,21 @@ public class Logic {
                 }
                 case "экономика":
                 {
-                    Economy.MainEconomy();
+                    UserData.currentUser.getEconomy().MainEconomy();
                     break;
                 }
                 case "армия":
                 {
-                    Army.MainArmy();
+                    UserData.currentUser.getArmy().MainArmy();
                     break;
                 }
                 case "население":
                 {
-                    Population.MainPopulation();
+                    UserData.currentUser.getPopulation().MainPopulation();
                     break;
+                }
+                case "смена пользователя":{
+                    //тебе дописать
                 }
                 default:
                 {

@@ -2,18 +2,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserData {
-    private class User {
+    public class User {
         private Economy economy;
         private Army army;
         private Population population;
 
         User() {
-            Economy economy = new Economy(20, 5);
-            Army army = new Army(0, 10, 5);
-            Population population = new Population(10, 10, 1);
+            economy = new Economy(20, 5, 10, 10);
+            army = new Army(0, 5);
+            population = new Population(10, 1);
         }
+
+        public Economy getEconomy(){return this.economy;}
+        public Army getArmy(){return this.army;}
+        public Population getPopulation(){return this.population;}
+
     }
-    private static User currentUser;
+    public static User currentUser;
     private Map<String, User> list;
     UserData(){
         list = new HashMap<String, User>();
@@ -21,6 +26,7 @@ public class UserData {
 
     private void userAdd(String s){
         list.put(s, new User());
+        currentUser = list.get(s);
     }
 
     private boolean userCheck(String s){
@@ -44,7 +50,4 @@ public class UserData {
         userAdd(s);
     }
 
-    public User getUser(){
-        return currentUser;
-    }
 }
