@@ -13,9 +13,9 @@ public class Messages {
     public static String notEnoughMoney = "Недостаточно денег";
     public static String needMoney = "Необходимо денег";
 
-    public static String categories = "Экономика \tАрмия \tНаселение";
+    public static String categories = "Экономика \tАрмия \tНаселение \tСменить пользователя";
 
-    public static String categoriesForEconomy = "Добавить деньги \tПоказать количество денег";
+    public static String categoriesForEconomy = "Показать количество денег";
     public static String categoriesForArmy = "Увеличить силу \tПоказать уровень силы";
     public static String categoriesForPopulation = "Увеличить лояльность \tПоказать уровень лояльности";
 
