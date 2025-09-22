@@ -2,7 +2,9 @@ public class Messages {
     public static String firstMessage = "Привет! Это игра с твоим другом. \n" +
             "Ты должен развивать свою страну, чтобы выиграть. \n" +
             "Введи /help, чтобы получить больше информации \n" +
-            "Введи /exit, чтобы выйти";
+            "Введи /exit, чтобы выйти \n";
+
+    public static String whatIsYourName = "Как тебя зовут?";
 
     public static String helpMessage = "потом будет";
 

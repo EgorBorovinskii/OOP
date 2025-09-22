@@ -1,33 +1,37 @@
 import java.util.Scanner;
 
 public class Army {
-    public static Scanner in = new Scanner(System.in);
+    private int power;
+    private int powerIncrease;
 
-    public static int power = 10;
-    public static int needMoney = 5;
-    public static int powerIncrease = 5;
-
-    public static void IncreasePower()
+    Army(int _power, int power_Increase)
     {
-        if (Economy.money < needMoney)
+        this.power = _power;
+        this.powerIncrease = power_Increase;
+    }
+
+    private void IncreasePower()
+    {
+        if (UserData.currentUser.getEconomy().getMoney() < UserData.currentUser.getEconomy().getMoneyForPower())
         {
             System.out.println(Messages.notEnoughMoney);
-            System.out.println(Messages.needMoney + ": " + needMoney);
+            System.out.println(Messages.needMoney + ": " + UserData.currentUser.getEconomy().getMoneyForPower());
         }
         else
         {
-            Economy.money -= needMoney;
+            UserData.currentUser.getEconomy().buyPower();
             power += powerIncrease;
         }
     }
 
-    public static void ShowPower()
+    private void ShowPower()
     {
         System.out.println(power);
     }
 
-    public static void MainArmy()
+    public void MainArmy()
     {
+        Scanner in = new Scanner(System.in);
         System.out.println(Messages.categoriesForArmy);
         String message = in.nextLine().toLowerCase();
         while (!message.equals("/back"))

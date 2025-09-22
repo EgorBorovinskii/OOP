@@ -1,32 +1,36 @@
 import java.util.Scanner;
 
 public class Population {
-    public static Scanner in = new Scanner(System.in);
+    private static Scanner in = new Scanner(System.in);
 
-    public static int loyalty = 20;
-    public static int needMoney = 5;
-    public static int loyaltyIncrease = 5;
+    private int loyalty;
+    private int loyaltyIncrease;
 
-    public static void IncreaseLoyalty()
+    Population(int _loyalty, int loyalty_Increase){
+        this.loyalty = _loyalty;
+        this.loyaltyIncrease = loyalty_Increase;
+    }
+
+    private void IncreaseLoyalty()
     {
-        if (Economy.money < needMoney)
+        if (UserData.currentUser.getEconomy().getMoney() < UserData.currentUser.getEconomy().getMoneyForLoyality())
         {
             System.out.println(Messages.notEnoughMoney);
-            System.out.println(Messages.needMoney + ": " + needMoney);
+            System.out.println(Messages.needMoney + ": " + UserData.currentUser.getEconomy().getMoneyForLoyality());
         }
         else
         {
-            Economy.money -= needMoney;
+            UserData.currentUser.getEconomy().buyLoyality();
             loyalty += loyaltyIncrease;
         }
     }
 
-    public static void ShowLoyalty()
+    private void ShowLoyalty()
     {
         System.out.println(loyalty);
     }
 
-    public static void MainPopulation()
+    public void MainPopulation()
     {
         System.out.println(Messages.categoriesForPopulation);
         String message = in.nextLine().toLowerCase();
