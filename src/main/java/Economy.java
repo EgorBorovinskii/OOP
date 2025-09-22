@@ -1,23 +1,33 @@
 import java.util.Scanner;
 
 public class Economy {
-    public static Scanner in = new Scanner(System.in);
+    private int money;
+    private int moneyIncrease;
 
-    public static int money = 20;
-    public static int moneyIncrease = 20;
+    Economy(int mone, int moneyIncr)
+    {
+        this.money = mone;
+        this.moneyIncrease = moneyIncr;
+    }
 
-    public static void IncreaseMoney()
+    public int getMoney()
+    {
+        return money;
+    }
+
+    private void IncreaseMoney()
     {
         money += moneyIncrease;
     }
 
-    public static void ShowMoney()
+    private void ShowMoney()
     {
         System.out.println(money);
     }
 
-    public static void MainEconomy()
+    private void MainEconomy()
     {
+        Scanner in = new Scanner(System.in);
         System.out.println(Messages.categoriesForEconomy);
         String message = in.nextLine().toLowerCase();
         while (!message.equals("/back"))
@@ -65,5 +75,6 @@ public class Economy {
             EventCheck.Check();
             message = in.nextLine();
         }
+        in.close();
     }
 }
