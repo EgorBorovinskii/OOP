@@ -1,23 +1,23 @@
 import java.util.Scanner;
 
 public class Economy {
-    private int money;
+    private float money;
     private int moneyForPower;
     private int moneyForLoyality;
 
-    Economy(int _money, int pow, int loal)
+    Economy(float _money, int pow, int loal)
     {
         this.money = _money;
         this.moneyForPower = pow;
         this.moneyForLoyality = loal;
     }
 
-    public int getMoney()
+    public float getMoney()
     {
         return money;
     }
 
-    public void setMoney(int addMoney)
+    public void setMoney(float addMoney)
     {
         this.money += addMoney;
     }
@@ -28,7 +28,7 @@ public class Economy {
 
     private void showMoney()
     {
-        System.out.println(money);
+        System.out.println((int)money);
     }
 
     public void buyPower(){
