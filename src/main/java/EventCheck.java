@@ -1,12 +1,10 @@
-import javax.xml.stream.events.StartDocument;
-
 public class EventCheck {
-    public static long StartTime = System.currentTimeMillis();
-    public static void Check(){
-        long EndTime = System.currentTimeMillis();
-        if(EndTime - StartTime > 20000) {
+    public static long startTime = System.currentTimeMillis();
+    public static void check(){
+        long endTime = System.currentTimeMillis();
+        if(endTime - startTime > 20000) {
             System.out.println(Messages.event);
-            StartTime = System.currentTimeMillis();
+            startTime = System.currentTimeMillis();
         }
     }
 }

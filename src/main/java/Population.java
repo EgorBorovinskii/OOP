@@ -11,7 +11,7 @@ public class Population {
         this.loyaltyIncrease = loyalty_Increase;
     }
 
-    private void IncreaseLoyalty()
+    private void increaseLoyalty()
     {
         if (UserData.currentUser.getEconomy().getMoney() < UserData.currentUser.getEconomy().getMoneyForLoyality())
         {
@@ -25,16 +25,17 @@ public class Population {
         }
     }
 
-    private void ShowLoyalty()
+    private void showLoyalty()
     {
         System.out.println(loyalty);
     }
 
-    public void MainPopulation()
+    public void mainPopulation()
     {
         System.out.println(Messages.categoriesForPopulation);
         String message = in.nextLine().toLowerCase();
         while (!message.equals("/back")) {
+            Money.addMoney();
             switch ((message)){
                 case "1":
                 {
@@ -49,19 +50,19 @@ public class Population {
             }
             switch (message) {
                 case "/help": {
-                    Logic.Help();
+                    Logic.help();
                     break;
                 }
                 case "/exit": {
-                    Logic.Exit();
+                    Logic.exit();
                     break;
                 }
                 case "Увеличить лояльность": {
-                    IncreaseLoyalty();
+                    increaseLoyalty();
                     break;
                 }
                 case "Показать уровень лояльности": {
-                    ShowLoyalty();
+                    showLoyalty();
                     break;
                 }
                 default: {
@@ -69,8 +70,7 @@ public class Population {
                     break;
                 }
             }
-            EventCheck.Check();
-            Money.addMoney();
+            EventCheck.check();
             message = in.nextLine();
         }
     }
