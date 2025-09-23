@@ -1,23 +1,23 @@
 import java.util.Scanner;
 
 public class Economy {
-    private int money;
+    private float money;
     private int moneyForPower;
     private int moneyForLoyality;
 
-    Economy(int _money, int pow, int loal)
+    Economy(float _money, int pow, int loal)
     {
         this.money = _money;
         this.moneyForPower = pow;
         this.moneyForLoyality = loal;
     }
 
-    public int getMoney()
+    public float getMoney()
     {
         return money;
     }
 
-    public void setMoney(int addMoney)
+    public void setMoney(float addMoney)
     {
         this.money += addMoney;
     }
@@ -26,9 +26,9 @@ public class Economy {
 
     public int getMoneyForLoyality(){return moneyForLoyality;}
 
-    private void ShowMoney()
+    private void showMoney()
     {
-        System.out.println(money);
+        System.out.println((int)money);
     }
 
     public void buyPower(){
@@ -41,12 +41,13 @@ public class Economy {
         this.moneyForLoyality += 5;
     }
 
-    public void MainEconomy()
+    public void mainEconomy()
     {
         Scanner in = new Scanner(System.in);
         System.out.println(Messages.categoriesForEconomy);
         String message = in.nextLine().toLowerCase();
         while (!message.equals("/back")) {
+            Money.addMoney();
             switch ((message)) {
                 case "1": {
                     message = "Показать количество денег";
@@ -55,15 +56,15 @@ public class Economy {
             }
             switch (message) {
                 case "/help": {
-                    Logic.Help();
+                    Logic.help();
                     break;
                 }
                 case "/exit": {
-                    Logic.Exit();
+                    Logic.exit();
                     break;
                 }
                 case "Показать количество денег": {
-                    ShowMoney();
+                    showMoney();
                     break;
                 }
                 default: {
@@ -71,8 +72,7 @@ public class Economy {
                     break;
                 }
             }
-            EventCheck.Check();
-            Money.addMoney();
+            EventCheck.check();
             message = in.nextLine();
         }
     }
