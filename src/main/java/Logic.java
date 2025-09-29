@@ -62,6 +62,7 @@ public class Logic {
                 {
                     System.out.println(Messages.whatIsYourName);
                     nickname = in.nextLine();
+                    Money.addMoney();
                     data.userChange(nickname);
                     break;
                 }
