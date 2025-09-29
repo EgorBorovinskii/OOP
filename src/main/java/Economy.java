@@ -1,79 +1,70 @@
 import java.util.Scanner;
 
 public class Economy {
-    private int money;
-    private int moneyIncrease;
+    private float money;
     private int moneyForPower;
     private int moneyForLoyality;
 
-    Economy(int _money, int money_Increase, int pow, int loal)
+    Economy(float _money, int pow, int loal)
     {
         this.money = _money;
-        this.moneyIncrease = money_Increase;
         this.moneyForPower = pow;
         this.moneyForLoyality = loal;
     }
 
-    public int getMoney()
+    public float getMoney()
     {
         return money;
     }
 
-    public int getMoneyIncrease(){ return moneyIncrease; }
+    public void setMoney(float addMoney)
+    {
+        this.money += addMoney;
+    }
 
     public int getMoneyForPower(){return moneyForPower;}
 
     public int getMoneyForLoyality(){return moneyForLoyality;}
 
-    private void IncreaseMoney()
+    private void showMoney()
     {
-        money += moneyIncrease;
-    }
-
-    private void ShowMoney()
-    {
-        System.out.println(money);
+        System.out.println((int)money);
     }
 
     public void buyPower(){
         this.money -= this.moneyForPower;
+        this.moneyForPower += 5;
     }
 
     public void buyLoyality(){
         this.money -= this.moneyForLoyality;
+        this.moneyForLoyality += 5;
     }
 
-    public void MainEconomy()
+    public void mainEconomy()
     {
         Scanner in = new Scanner(System.in);
         System.out.println(Messages.categoriesForEconomy);
         String message = in.nextLine().toLowerCase();
         while (!message.equals("/back")) {
+            Money.addMoney();
             switch ((message)) {
                 case "1": {
-                    message = "Добавить деньги";
-                    break;
-                }
-                case "2": {
                     message = "Показать количество денег";
                     break;
                 }
             }
             switch (message) {
                 case "/help": {
-                    Logic.Help();
+                    Logic.help();
                     break;
                 }
                 case "/exit": {
-                    Logic.Exit();
-                    break;
-                }
-                case "Добавить деньги": {
-                    IncreaseMoney();
+                    Logic.exit();
                     break;
                 }
                 case "Показать количество денег": {
-                    ShowMoney();
+                    showMoney();
                     break;
                 }
                 default: {
@@ -81,7 +72,7 @@ public class Economy {
                     break;
                 }
             }
-            EventCheck.Check();
+            EventCheck.check();
             message = in.nextLine();
         }
     }

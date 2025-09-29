@@ -8,7 +8,7 @@ public class UserData {
         private Population population;
 
         User() {
-            economy = new Economy(20, 5, 10, 10);
+            economy = new Economy(20,  10, 10);
             army = new Army(0, 5);
             population = new Population(10, 1);
         }
@@ -24,30 +24,30 @@ public class UserData {
         list = new HashMap<String, User>();
     }
 
-    private void userAdd(String s){
-        list.put(s, new User());
-        currentUser = list.get(s);
+    private void userAdd(String userName){
+        list.put(userName, new User());
+        currentUser = list.get(userName);
     }
 
-    private boolean userCheck(String s){
+    private boolean userCheck(String userName){
         for(String name : list.keySet()){
-            if(name.equals(s)){
+            if(name.equals(userName)){
                 return true;
             }
         }
         return false;
     }
 
-    private void userSwap(String s){
-        currentUser = list.get(s);
+    private void userSwap(String userName){
+        currentUser = list.get(userName);
     }
 
-    public void userChange(String s){
-        if(userCheck(s)){
-            userSwap(s);
+    public void userChange(String userName){
+        if(userCheck(userName)){
+            userSwap(userName);
             return;
         }
-        userAdd(s);
+        userAdd(userName);
     }
 
 }

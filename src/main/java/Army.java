@@ -10,7 +10,7 @@ public class Army {
         this.powerIncrease = power_Increase;
     }
 
-    private void IncreasePower()
+    private void increasePower()
     {
         if (UserData.currentUser.getEconomy().getMoney() < UserData.currentUser.getEconomy().getMoneyForPower())
         {
@@ -24,18 +24,19 @@ public class Army {
         }
     }
 
-    private void ShowPower()
+    private void showPower()
     {
         System.out.println(power);
     }
 
-    public void MainArmy()
+    public void mainArmy()
     {
         Scanner in = new Scanner(System.in);
         System.out.println(Messages.categoriesForArmy);
         String message = in.nextLine().toLowerCase();
         while (!message.equals("/back"))
         {
+            Money.addMoney();
             switch ((message)){
                 case "1":
                 {
@@ -52,22 +53,22 @@ public class Army {
             {
                 case "/help":
                 {
-                    Logic.Help();
+                    Logic.help();
                     break;
                 }
                 case "/exit":
                 {
-                    Logic.Exit();
+                    Logic.exit();
                     break;
                 }
                 case "Увеличить силу":
                 {
-                    IncreasePower();
+                    increasePower();
                     break;
                 }
                 case "Показать уровень силы":
                 {
-                    ShowPower();
+                    showPower();
                     break;
                 }
                 default:
@@ -76,8 +77,7 @@ public class Army {
                     break;
                 }
             }
-            EventCheck.Check();
-            Money.addMoney();
+            EventCheck.check();
             message = in.nextLine();
         }
     }

@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Logic {
-    public void Start()
+    public void start()
     {
         UserData data = new UserData();
         System.out.println(Messages.firstMessage + Messages.whatIsYourName);
@@ -28,38 +28,42 @@ public class Logic {
                     break;
                 }
                 case "4":{
-                    message = "смена пользователя";
+                    message = "сменить пользователя";
                 }
             }
             switch (message)
             {
                 case "/exit":
                 {
-                    Exit();
+                    exit();
                     break;
                 }
                 case "/help":
                 {
-                    Help();
+                    help();
                     break;
                 }
                 case "экономика":
                 {
-                    UserData.currentUser.getEconomy().MainEconomy();
+                    UserData.currentUser.getEconomy().mainEconomy();
                     break;
                 }
                 case "армия":
                 {
-                    UserData.currentUser.getArmy().MainArmy();
+                    UserData.currentUser.getArmy().mainArmy();
                     break;
                 }
                 case "население":
                 {
-                    UserData.currentUser.getPopulation().MainPopulation();
+                    UserData.currentUser.getPopulation().mainPopulation();
                     break;
                 }
-                case "смена пользователя":{
-                    //тебе дописать
+                case "сменить пользователя":
+                {
+                    System.out.println(Messages.whatIsYourName);
+                    nickname = in.nextLine();
+                    data.userChange(nickname);
+                    break;
                 }
                 default:
                 {
@@ -70,12 +74,12 @@ public class Logic {
         }
     }
 
-    public static void Help()
+    public static void help()
     {
         System.out.println(Messages.helpMessage);
     }
 
-    public static void Exit()
+    public static void exit()
     {
         System.exit(0);
     }
