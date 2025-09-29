@@ -43,6 +43,7 @@ public class UserData {
     }
 
     public void userChange(String userName){
+        Money.addMoney();
         if(userCheck(userName)){
             userSwap(userName);
             return;
