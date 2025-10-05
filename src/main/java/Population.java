@@ -3,12 +3,17 @@ import java.util.Scanner;
 public class Population {
     private static Scanner in = new Scanner(System.in);
 
-    private int loyalty;
+    private Long loyalty;
     private int loyaltyIncrease;
 
-    Population(int _loyalty, int loyalty_Increase){
+    Population(Long _loyalty, int loyalty_Increase){
         this.loyalty = _loyalty;
         this.loyaltyIncrease = loyalty_Increase;
+    }
+
+    public void setLoyalty(Long loyaltyAdd)
+    {
+        this.loyalty += loyaltyAdd;
     }
 
     private void increaseLoyalty()

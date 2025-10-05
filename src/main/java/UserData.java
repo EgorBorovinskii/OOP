@@ -6,16 +6,20 @@ public class UserData {
         private Economy economy;
         private Army army;
         private Population population;
+        private Events events;
 
         User() {
             economy = new Economy(20,  10, 10);
-            army = new Army(0, 5);
-            population = new Population(10, 1);
+            army = new Army(0L, 5);
+            population = new Population(10L, 1);
+            ParserJsonEvents parser = new ParserJsonEvents();
+            events = parser.parse();
         }
 
         public Economy getEconomy(){return this.economy;}
         public Army getArmy(){return this.army;}
         public Population getPopulation(){return this.population;}
+        public Events getEvents(){return this.events;}
 
     }
     public static User currentUser;
@@ -43,7 +47,6 @@ public class UserData {
     }
 
     public void userChange(String userName){
-        Money.addMoney();
         if(userCheck(userName)){
             userSwap(userName);
             return;

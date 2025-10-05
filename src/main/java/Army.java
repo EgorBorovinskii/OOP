@@ -1,13 +1,18 @@
 import java.util.Scanner;
 
 public class Army {
-    private int power;
+    private Long power;
     private int powerIncrease;
 
-    Army(int _power, int power_Increase)
+    Army(Long _power, int power_Increase)
     {
         this.power = _power;
         this.powerIncrease = power_Increase;
+    }
+
+    public void setPower(Long powerAdd)
+    {
+        this.power += powerAdd;
     }
 
     private void increasePower()
