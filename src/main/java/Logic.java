@@ -1,3 +1,4 @@
+import java.util.Date;
 import java.util.Scanner;
 
 public class Logic {
@@ -7,57 +8,49 @@ public class Logic {
         data = new UserData();
         state = 0;
     }
-    public String Answer(String message, String nickname)
-    {
-        if(message.equals("/start")){
+    public String Answer(String message, String nickname) {
+        if (message.equals("/start")) {
             return Messages.firstMessage + Messages.whatIsYourName;
         }
-        System.out.println(Messages.categories);
         message = message.toLowerCase();
-        switch ((message)){
-            case "1":
-            {
-                message = "экономика";
-                break;
-            }
-            case "2":
-            {
-                message = "армия";
-                break;
-            }
-            case "3": {
-                message = "население";
-                break;
-            }
-            case "4":{
-                message = "сменить пользователя";
-            }
+        data.userChange(nickname);
+        if(message.equals("назад")){
+            state = 0;
+            return "Главное меню";
         }
-        switch (message)
-        {
-            case "/exit":
-            {
-                exit();
-                break;
+        switch (state) {
+            case 0: {
+                switch (message) {
+                    case "/exit": {
+                        exit();
+                        break;
+                    }
+                    case "/help": {
+                        return Messages.helpMessage;
+                    }
+                    case "экономика": {
+                        state = 1;
+                        return "вы вошли в экономику";
+                    }
+                    case "армия": {
+                        state = 2;
+                        return "вы вошли в армию";
+                    }
+                    case "население": {
+                        state = 3;
+                        return "вы вошли в население";
+                    }
+                }
+                return Messages.unknownCommand;
             }
-            case "/help":
-            {
-                return Messages.helpMessage;
-            }
-            case "экономика":
-            {
-                UserData.currentUser.getEconomy().mainEconomy();
-            }
-            case "армия":
-            {
-                UserData.currentUser.getArmy().mainArmy();
-            }
-            case "население":
-            {
-                UserData.currentUser.getPopulation().mainPopulation();
-            }
+            case 1:
+                return UserData.currentUser.getEconomy().mainEconomy(message);
+            case 2:
+                return UserData.currentUser.getArmy().mainArmy(message);
+            case 3:
+                return UserData.currentUser.getPopulation().mainPopulation(message);
         }
-        return Messages.unknownCommand;
+        return message;
     }
 
 
@@ -65,4 +58,6 @@ public class Logic {
     {
         System.exit(0);
     }
+
+    public int getState() { return state;}
 }

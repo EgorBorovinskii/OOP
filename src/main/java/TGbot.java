@@ -13,11 +13,11 @@ public class TGbot extends TelegramLongPollingBot {
     final private String BOT_TOKEN = "8465877064:AAHSnu0oOhuoK9po3iHLQvaTFW4srGYmvo4";
     final private String BOT_NAME = "FoEmpire_bot";
     private Logic logic;
-    private ReplyKeyboardMarkup replyKeyboardMarkupMenu;
+    private ArrayList<ReplyKeyboardMarkup> replyKeyboardMarkups;
 
     public TGbot(){
         logic = new Logic();
-        initKeyboardMenu();
+        initKeyboards();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class TGbot extends TelegramLongPollingBot {
                 SendMessage outMess = new SendMessage();
                 outMess.setChatId(inMess.getChatId());
                 outMess.setText(response);
-                outMess.setReplyMarkup(replyKeyboardMarkupMenu);
+                outMess.setReplyMarkup(replyKeyboardMarkups.get(logic.getState()));
 
                 execute(outMess);
             }
@@ -50,10 +50,14 @@ public class TGbot extends TelegramLongPollingBot {
         }
     }
 
-    void initKeyboardMenu(){
-        replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(false);
+    void initKeyboards(){
+        KeyboardRow keyrowBack = new KeyboardRow();
+        keyrowBack.add(new KeyboardButton("Назад"));
+        replyKeyboardMarkups = new ArrayList<>();
+
+        ReplyKeyboardMarkup replyKeyboardMarkupMenu = new ReplyKeyboardMarkup();
+        replyKeyboardMarkupMenu.setResizeKeyboard(true);
+        replyKeyboardMarkupMenu.setOneTimeKeyboard(true);
 
         ArrayList<KeyboardRow> keyrows = new ArrayList<>();
         KeyboardRow keyrowe = new KeyboardRow();
@@ -68,7 +72,69 @@ public class TGbot extends TelegramLongPollingBot {
         keyrows.add(keyrowp);
         keyrowp.add(new KeyboardButton("Население"));
 
-        replyKeyboardMarkup.setKeyboard(keyrows);
+        replyKeyboardMarkupMenu.setKeyboard(keyrows);
+        replyKeyboardMarkups.add(replyKeyboardMarkupMenu);
+
+        ReplyKeyboardMarkup replyKeyboardMarkupEconomy = new ReplyKeyboardMarkup();
+        replyKeyboardMarkupEconomy.setResizeKeyboard(true);
+        replyKeyboardMarkupEconomy.setOneTimeKeyboard(false);
+
+        ArrayList<KeyboardRow> keyrowsE = new ArrayList<>();
+
+        KeyboardRow keyrowm = new KeyboardRow();
+        keyrowsE.add(keyrowm);
+        keyrowm.add(new KeyboardButton("Показать количество денег"));
+
+        KeyboardRow keyrowN = new KeyboardRow();
+        keyrowsE.add(keyrowN);
+        keyrowN.add(new KeyboardButton("Поднять Налоги?"));
+
+        keyrowsE.add(keyrowBack);
+
+        replyKeyboardMarkupEconomy.setKeyboard(keyrowsE);
+        replyKeyboardMarkups.add(replyKeyboardMarkupEconomy);
+
+        ReplyKeyboardMarkup replyKeyboardMarkupArmy = new ReplyKeyboardMarkup();
+        replyKeyboardMarkupArmy.setResizeKeyboard(true);
+        replyKeyboardMarkupArmy.setOneTimeKeyboard(false);
+
+        ArrayList<KeyboardRow> keyrowsA = new ArrayList<>();
+
+        KeyboardRow keyrowS = new KeyboardRow();
+        keyrowsA.add(keyrowS);
+        keyrowS.add(new KeyboardButton("Показать уровень силы"));
+
+        KeyboardRow keyrowU = new KeyboardRow();
+        keyrowsA.add(keyrowU);
+        keyrowU.add(new KeyboardButton("Увеличить силу"));
+
+        keyrowsA.add(keyrowBack);
+
+        replyKeyboardMarkupArmy.setKeyboard(keyrowsA);
+        replyKeyboardMarkups.add(replyKeyboardMarkupArmy);
+
+
+        ReplyKeyboardMarkup replyKeyboardMarkupPopulation = new ReplyKeyboardMarkup();
+        replyKeyboardMarkupPopulation.setResizeKeyboard(true);
+        replyKeyboardMarkupPopulation.setOneTimeKeyboard(false);
+
+        ArrayList<KeyboardRow> keyrowsP = new ArrayList<>();
+
+        KeyboardRow keyrowShow = new KeyboardRow();
+        keyrowsP.add(keyrowShow);
+        keyrowShow.add(new KeyboardButton("Показать уровень лояльности"));
+
+        KeyboardRow keyrowUp = new KeyboardRow();
+        keyrowsP.add(keyrowUp);
+        keyrowUp.add(new KeyboardButton("Увеличить лояльность"));
+
+        keyrowsP.add(keyrowBack);
+
+        replyKeyboardMarkupPopulation.setKeyboard(keyrowsP);
+        replyKeyboardMarkups.add(replyKeyboardMarkupPopulation);
+
+
+
     }
 
 }

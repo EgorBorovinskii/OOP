@@ -7,7 +7,7 @@ public class ParserJsonEvents {
     public Events parse()
     {
         Gson gson = new Gson();
-        String filePath = "C:\\Users\\Egor\\Desktop\\Java\\Test\\src\\main\\resources\\Test.json";
+        String filePath = getClass().getResource("Events.json").toString().substring(5);
         try (FileReader reader = new FileReader(filePath)) {
             Events events = gson.fromJson(reader, Events.class);
             events.fillingChance();

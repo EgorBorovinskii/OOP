@@ -15,74 +15,49 @@ public class Army {
         this.power += powerAdd;
     }
 
-    private void increasePower()
+    private String increasePower()
     {
         if (UserData.currentUser.getEconomy().getMoney() < UserData.currentUser.getEconomy().getMoneyForPower())
         {
-            System.out.println(Messages.notEnoughMoney);
-            System.out.println(Messages.needMoney + ": " + UserData.currentUser.getEconomy().getMoneyForPower());
+            return Messages.notEnoughMoney + '\n' + Messages.needMoney + ": " + UserData.currentUser.getEconomy().getMoneyForPower();
         }
         else
         {
             UserData.currentUser.getEconomy().buyPower();
             power += powerIncrease;
+            return "Успешно\nТекущая сила:" + String.valueOf(GetPower());
         }
     }
 
-    private void showPower()
+    private long GetPower()
     {
-        System.out.println(power);
+        return power;
     }
 
-    public void mainArmy()
+    public String mainArmy(String message)
     {
-        Scanner in = new Scanner(System.in);
-        System.out.println(Messages.categoriesForArmy);
-        String message = in.nextLine().toLowerCase();
-        while (!message.equals("/back"))
+        Money.addMoney();
+        switch (message)
         {
-            Money.addMoney();
-            switch ((message)){
-                case "1":
-                {
-                    message = "Увеличить силу";
-                    break;
-                }
-                case "2":
-                {
-                    message = "Показать уровень силы";
-                    break;
-                }
-            }
-            switch (message)
+            case "/help":
             {
-                case "/help":
-                {
-                    break;
-                }
-                case "/exit":
-                {
-                    Logic.exit();
-                    break;
-                }
-                case "Увеличить силу":
-                {
-                    increasePower();
-                    break;
-                }
-                case "Показать уровень силы":
-                {
-                    showPower();
-                    break;
-                }
-                default:
-                {
-                    System.out.println(Messages.unknownCommand);
-                    break;
-                }
+                break;
             }
-            EventCheck.check();
-            message = in.nextLine();
+            case "/exit":
+            {
+                Logic.exit();
+                break;
+            }
+            case "увеличить силу": {
+                return increasePower();
+            }
+            case "показать уровень силы":
+            {
+                return String.valueOf(GetPower());
+            }
         }
+        EventCheck.check();
+        return Messages.unknownCommand;
     }
 }
+

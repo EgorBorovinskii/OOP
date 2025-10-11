@@ -16,66 +16,45 @@ public class Population {
         this.loyalty += loyaltyAdd;
     }
 
-    private void increaseLoyalty()
+    private String increaseLoyalty()
     {
         if (UserData.currentUser.getEconomy().getMoney() < UserData.currentUser.getEconomy().getMoneyForLoyality())
         {
-            System.out.println(Messages.notEnoughMoney);
-            System.out.println(Messages.needMoney + ": " + UserData.currentUser.getEconomy().getMoneyForLoyality());
+            return Messages.notEnoughMoney + '\n' + Messages.needMoney + ": " + UserData.currentUser.getEconomy().getMoneyForLoyality();
         }
         else
         {
             UserData.currentUser.getEconomy().buyLoyality();
             loyalty += loyaltyIncrease;
+            return "Успешно\nТекущая лояльность: " + String.valueOf(GetLoyalty());
         }
     }
 
-    private void showLoyalty()
+    private long GetLoyalty()
     {
-        System.out.println(loyalty);
+        return loyalty;
     }
 
-    public void mainPopulation()
+    public String mainPopulation(String message)
     {
-        System.out.println(Messages.categoriesForPopulation);
-        String message = in.nextLine().toLowerCase();
-        while (!message.equals("/back")) {
-            Money.addMoney();
-            switch ((message)){
-                case "1":
-                {
-                    message = "Увеличить лояльность";
-                    break;
-                }
-                case "2":
-                {
-                    message = "Показать уровень лояльности";
-                    break;
-                }
-            }
-            switch (message) {
-                case "/help": {
-                    break;
-                }
-                case "/exit": {
-                    Logic.exit();
-                    break;
-                }
-                case "Увеличить лояльность": {
-                    increaseLoyalty();
-                    break;
-                }
-                case "Показать уровень лояльности": {
-                    showLoyalty();
-                    break;
-                }
-                default: {
-                    System.out.println(Messages.unknownCommand);
-                    break;
-                }
-            }
-            EventCheck.check();
-            message = in.nextLine();
-        }
+         Money.addMoney();
+         switch (message) {
+             case "/help": {
+                 break;
+             }
+             case "/exit": {
+                 Logic.exit();
+                 break;
+             }
+             case "увеличить лояльность": {
+                 return increaseLoyalty();
+             }
+             case "показать уровень лояльности": {
+                 return String.valueOf(GetLoyalty());
+             }
+         }
+         EventCheck.check();
+         return Messages.unknownCommand;
     }
 }
+
