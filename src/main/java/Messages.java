@@ -20,4 +20,5 @@ public class Messages {
     public static String categoriesForPopulation = "Увеличить лояльность \tПоказать уровень лояльности";
 
     public static String event = "Время события!";
+    public static String noOption = "Такого варианта нет";
 }

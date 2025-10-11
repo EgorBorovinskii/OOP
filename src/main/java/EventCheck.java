@@ -3,8 +3,13 @@ public class EventCheck {
     public static void check(){
         long endTime = System.currentTimeMillis();
         if(endTime - startTime > 20000) {
-            System.out.println(Messages.event);
+            UserData.currentUser.getEvents().printRandom();
             startTime = System.currentTimeMillis();
         }
+    }
+
+    public static void updateTime()
+    {
+        startTime = System.currentTimeMillis();
     }
 }
