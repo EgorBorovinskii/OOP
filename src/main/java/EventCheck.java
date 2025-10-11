@@ -7,4 +7,9 @@ public class EventCheck {
             startTime = System.currentTimeMillis();
         }
     }
+
+    public static void updateTime()
+    {
+        startTime = System.currentTimeMillis();
+    }
 }

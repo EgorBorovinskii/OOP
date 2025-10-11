@@ -30,6 +30,7 @@ public class Events {
     private void fillingZero(int index)
     {
         zeroForEvents[indexForZeroEvents % 4] = index;
+        indexForZeroEvents++;
         for (int i = 0; i < zeroForEvents.length; i++)
         {
             if (zeroForEvents[i] > -1)
@@ -84,6 +85,6 @@ public class Events {
                 System.out.println(Messages.noOption);
                 version = in.nextInt();
             }
-        } while (version < 0 && version > edit.size() - 1);
+        } while (version < 0 && version > edit.size() + 1);
     }
 }
