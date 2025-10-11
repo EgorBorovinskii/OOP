@@ -55,7 +55,6 @@ public class Population {
             }
             switch (message) {
                 case "/help": {
-                    Logic.help();
                     break;
                 }
                 case "/exit": {

@@ -56,7 +56,6 @@ public class Economy {
             }
             switch (message) {
                 case "/help": {
-                    Logic.help();
                     break;
                 }
                 case "/exit": {
