@@ -1,11 +1,12 @@
 public class EventCheck {
     public static long startTime = System.currentTimeMillis();
-    public static void check(){
+    public static boolean check(){
         long endTime = System.currentTimeMillis();
         if(endTime - startTime > 20000) {
-            UserData.currentUser.getEvents().printRandom();
             startTime = System.currentTimeMillis();
+            return true;
         }
+        return false;
     }
 
     public static void updateTime()

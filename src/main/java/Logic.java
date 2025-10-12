@@ -14,6 +14,10 @@ public class Logic {
         }
         message = message.toLowerCase();
         data.userChange(nickname);
+        if (EventCheck.check()){
+            state = 5;
+            //return UserData.currentUser.getEvents().printRandom();
+        }
         if(message.equals("назад")){
             state = 0;
             return "Главное меню";
