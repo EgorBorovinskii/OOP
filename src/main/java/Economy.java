@@ -41,39 +41,23 @@ public class Economy {
         this.moneyForLoyality += 5;
     }
 
-    public void mainEconomy()
+    public String mainEconomy(String message)
     {
-        Scanner in = new Scanner(System.in);
-        System.out.println(Messages.categoriesForEconomy);
-        String message = in.nextLine().toLowerCase();
-        while (!message.equals("/back")) {
-            Money.addMoney();
-            switch ((message)) {
-                case "1": {
-                    message = "Показать количество денег";
-                    break;
-                }
+        Money.addMoney();
+        switch (message) {
+            case "/help": {
+                break;
             }
-            switch (message) {
-                case "/help": {
-                    Logic.help();
-                    break;
-                }
-                case "/exit": {
-                    Logic.exit();
-                    break;
-                }
-                case "Показать количество денег": {
-                    showMoney();
-                    break;
-                }
-                default: {
-                    System.out.println(Messages.unknownCommand);
-                    break;
-                }
+            case "/exit": {
+                Logic.exit();
+                break;
             }
-            EventCheck.check();
-            message = in.nextLine();
+            case "показать количество денег": {
+                return String.valueOf(getMoney());
+            }
         }
+        EventCheck.check();
+        return Messages.unknownCommand;
     }
 }
+

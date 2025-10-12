@@ -9,6 +9,7 @@ public class Events {
     private double[] chance;
     private int[] zeroForEvents = {-1, -1, -1, -1};
     private int indexForZeroEvents = 0;
+    private int indexEvent;
 
     public void setEvents(List<Event> events)
     {
@@ -57,6 +58,32 @@ public class Events {
             }
         }
         return chance.length - 1;
+    }
+
+    public String getEvent()
+    {
+        String eventString;
+        indexEvent = random();
+        Event event = events.get(indexEvent);
+        List<String> versions = event.getVersions();
+        eventString = event.getEvent() + "\n" + versions.get(0) + "\n" + versions.get(1);
+        return eventString;
+    }
+
+    public String doEvent(String mess)
+    {
+        if(mess.equals("1") || mess.equals("2")) {
+            int version = Integer.parseInt(mess);
+            Event event = events.get(indexEvent);
+            List<Long> edit = event.getEdit().get(version - 1);
+            UserData.currentUser.getEconomy().setMoney(edit.get(0));
+            UserData.currentUser.getPopulation().setLoyalty(edit.get(1));
+            UserData.currentUser.getArmy().setPower(edit.get(2));
+            return "Выбор сделан!";
+        }
+        else{
+            return Messages.unknownCommand;
+        }
     }
 
     public void printRandom()
