@@ -15,8 +15,8 @@ public class Logic {
         message = message.toLowerCase();
         data.userChange(nickname);
         if (EventCheck.check()){
-            state = 5;
-            //return UserData.currentUser.getEvents().printRandom();
+            state = 4;
+            return UserData.currentUser.getEvents().getEvent();
         }
         if(message.equals("назад")){
             state = 0;
@@ -53,8 +53,11 @@ public class Logic {
                 return UserData.currentUser.getArmy().mainArmy(message);
             case 3:
                 return UserData.currentUser.getPopulation().mainPopulation(message);
+            case 4:
+                state = 0;
+                return UserData.currentUser.getEvents().doEvent(message);
         }
-        return message;
+        return Messages.unknownCommand;
     }
 
 

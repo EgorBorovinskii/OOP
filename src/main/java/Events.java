@@ -70,13 +70,20 @@ public class Events {
         return eventString;
     }
 
-    public void doEvent(int version)
+    public String doEvent(String mess)
     {
-        Event event = events.get(indexEvent);
-        List<Long> edit = event.getEdit().get(version - 1);
-        UserData.currentUser.getEconomy().setMoney(edit.get(0));
-        UserData.currentUser.getPopulation().setLoyalty(edit.get(1));
-        UserData.currentUser.getArmy().setPower(edit.get(2));
+        if(mess.equals("1") || mess.equals("2")) {
+            int version = Integer.parseInt(mess);
+            Event event = events.get(indexEvent);
+            List<Long> edit = event.getEdit().get(version - 1);
+            UserData.currentUser.getEconomy().setMoney(edit.get(0));
+            UserData.currentUser.getPopulation().setLoyalty(edit.get(1));
+            UserData.currentUser.getArmy().setPower(edit.get(2));
+            return "Выбор сделан!";
+        }
+        else{
+            return Messages.unknownCommand;
+        }
     }
 
     public void printRandom()

@@ -144,7 +144,7 @@ public class TGbot extends TelegramLongPollingBot {
         keyrow1.add(new KeyboardButton("1"));
         keyrow1.add(new KeyboardButton("2"));
 
-        replyKeyboardMarkupPopulation.setKeyboard(keyrowsC);
+        replyKeyboardMarkupChoice.setKeyboard(keyrowsC);
         replyKeyboardMarkups.add(replyKeyboardMarkupChoice);
 
 
