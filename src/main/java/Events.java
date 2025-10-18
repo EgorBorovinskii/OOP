@@ -85,33 +85,4 @@ public class Events {
             return Messages.unknownCommand;
         }
     }
-
-    public void printRandom()
-    {
-        Scanner in = new Scanner(System.in);
-        int version;
-        int index = random();
-        Event event = events.get(index);
-        System.out.println(event.getEvent());
-        List<String> versions = event.getVersions();
-        List<List<Long>> edit = event.getEdit();
-        for (int i = 0; i < versions.size(); i++) {
-            System.out.println(versions.get(i));
-        }
-        version = in.nextInt();
-        do {
-            if (version > 0 && version < edit.size() + 1)
-            {
-                List<Long> ed = edit.get(version - 1);
-                UserData.currentUser.getEconomy().setMoney(ed.get(0));
-                UserData.currentUser.getPopulation().setLoyalty(ed.get(1));
-                UserData.currentUser.getArmy().setPower(ed.get(2));
-            }
-            else
-            {
-                System.out.println(Messages.noOption);
-                version = in.nextInt();
-            }
-        } while (version < 0 && version > edit.size() + 1);
-    }
 }
