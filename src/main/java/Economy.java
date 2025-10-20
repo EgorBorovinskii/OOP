@@ -5,11 +5,11 @@ public class Economy {
     private int moneyForPower;
     private int moneyForLoyality;
 
-    Economy(float _money, int pow, int loal)
+    Economy(float _money, int money_for_power, int money_for_loyality)
     {
         this.money = _money;
-        this.moneyForPower = pow;
-        this.moneyForLoyality = loal;
+        this.moneyForPower = money_for_power;
+        this.moneyForLoyality = money_for_loyality;
     }
 
     public float getMoney()
