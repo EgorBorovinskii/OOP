@@ -4,25 +4,17 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class Creator implements GetterMessanges{
         private GetterMessanges state;
-        boolean event;
 
         public SendMessage getMess(Update up){
             if(EventCheck.check()){
                 state = UserData.list.get(up.getMessage().getChat().getUserName()).getEvents();
-                event = true;
                 return UserData.list.get(up.getMessage().getChat().getUserName()).getEvents().getEvent(up);
-            }
-            if(event){
-                event = false;
-                swap(up);
-                return state.getMess(up);
             }
             return state.getMess(up);
         }
 
         public Creator(){
             state = new Logic();
-            event = false;
         }
 
 
@@ -33,7 +25,7 @@ public class Creator implements GetterMessanges{
             String nickname = inMess.getChat().getUserName();
             message = message.toLowerCase();
             switch (message){
-                case "назад":{
+                case "назад", "1", "2":{
                     state = new Logic();
                     return;
                 }
