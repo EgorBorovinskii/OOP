@@ -1,10 +1,12 @@
 import com.google.gson.Gson;
+import com.google.gson.reflect.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.io.FileReader;
 import java.util.List;
+import java.lang.reflect.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +52,7 @@ public class TGKeyboards {
         Gson gson = new Gson();
         String filePath = getClass().getResource("Keyboards.json").toString().substring(5);
         try (FileReader reader = new FileReader(filePath)) {
-            java.lang.reflect.Type listType = new com.google.gson.reflect.TypeToken<List<Keyboard>>(){}.getType();
+            Type listType = new TypeToken<List<Keyboard>>(){}.getType();
             keyboards = gson.fromJson(reader, listType);
         } catch (Exception e) {
             throw new RuntimeException(e);
