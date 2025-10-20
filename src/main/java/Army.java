@@ -1,6 +1,8 @@
-import java.util.Scanner;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
-public class Army {
+public class Army implements GetterMessanges {
     private Long power;
     private int powerIncrease;
 
@@ -15,15 +17,15 @@ public class Army {
         this.power += powerAdd;
     }
 
-    private String increasePower()
+    private String increasePower(String nick)
     {
-        if (UserData.currentUser.getEconomy().getMoney() < UserData.currentUser.getEconomy().getMoneyForPower())
+        if (UserData.list.get(nick).getEconomy().getMoney() < UserData.list.get(nick).getEconomy().getMoneyForPower())
         {
-            return Messages.notEnoughMoney + '\n' + Messages.needMoney + ": " + UserData.currentUser.getEconomy().getMoneyForPower();
+            return Messages.notEnoughMoney + '\n' + Messages.needMoney + ": " + UserData.list.get(nick).getEconomy().getMoneyForPower();
         }
         else
         {
-            UserData.currentUser.getEconomy().buyPower();
+            UserData.list.get(nick).getEconomy().buyPower();
             power += powerIncrease;
             return "Успешно\nТекущая сила:" + String.valueOf(GetPower());
         }
@@ -34,30 +36,41 @@ public class Army {
         return power;
     }
 
-    public String mainArmy(String message)
+    public SendMessage getMess(Update up)
     {
-        Money.addMoney();
+
+        Message inMess = up.getMessage();
+        String message = inMess.getText();
+        String nickname = inMess.getChat().getUserName();
+        message = message.toLowerCase();
+        Money.addMoney(nickname);
+
+        SendMessage outMess = new SendMessage();
         switch (message)
         {
-            case "/help":
-            {
-                break;
-            }
-            case "/exit":
-            {
-                Logic.exit();
-                break;
-            }
             case "увеличить силу": {
-                return increasePower();
+                outMess.setText(increasePower(nickname));
+                outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(2));
+                break;
             }
             case "показать уровень силы":
             {
-                return String.valueOf(GetPower());
+                outMess.setText(String.valueOf(GetPower()));
+                outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(2));
+                break;
+            }
+            case"назад":{
+                outMess.setText("Главное меню");
+                outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(0));
+                break;
+            }
+            default: {
+                outMess.setText(Messages.unknownCommand);
+                outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(2));
             }
         }
         EventCheck.check();
-        return Messages.unknownCommand;
+        return outMess;
     }
 }
 

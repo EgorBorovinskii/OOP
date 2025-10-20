@@ -1,9 +1,13 @@
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Events {
+public class Events implements GetterMessanges{
     private List<Event> events;
     private double maxPercent = 100;
     private double[] chance;
@@ -60,29 +64,43 @@ public class Events {
         return chance.length - 1;
     }
 
-    public String getEvent()
+    public SendMessage getEvent(Update up)
     {
         String eventString;
         indexEvent = random();
         Event event = events.get(indexEvent);
         List<String> versions = event.getVersions();
         eventString = event.getEvent() + "\n" + versions.get(0) + "\n" + versions.get(1);
-        return eventString;
+
+        SendMessage outMess = new SendMessage();
+        outMess.setText(eventString);
+        outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(4));
+        return outMess;
     }
 
-    public String doEvent(String mess)
+    public SendMessage getMess(Update up)
     {
+        Message inMess = up.getMessage();
+        String mess = inMess.getText();
+        String nick = inMess.getChat().getUserName();
+        mess = mess.toLowerCase();
+        Money.addMoney(nick);
+
+        SendMessage outMess = new SendMessage();
         if(mess.equals("1") || mess.equals("2")) {
             int version = Integer.parseInt(mess);
             Event event = events.get(indexEvent);
             List<Long> edit = event.getEdit().get(version - 1);
-            UserData.currentUser.getEconomy().setMoney(edit.get(0));
-            UserData.currentUser.getPopulation().setLoyalty(edit.get(1));
-            UserData.currentUser.getArmy().setPower(edit.get(2));
-            return "Выбор сделан!";
+            UserData.list.get(nick).getEconomy().setMoney(edit.get(0));
+            UserData.list.get(nick).getPopulation().setLoyalty(edit.get(1));
+            UserData.list.get(nick).getArmy().setPower(edit.get(2));
+            outMess.setText("Выбор сделан!");
+            outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(0));
         }
         else{
-            return Messages.unknownCommand;
+            outMess.setText(Messages.unknownCommand);
+            outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(4));
         }
+        return outMess;
     }
 }

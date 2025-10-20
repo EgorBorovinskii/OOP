@@ -1,0 +1,53 @@
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
+
+public class Creator implements GetterMessanges{
+        private GetterMessanges state;
+        boolean event;
+
+        public SendMessage getMess(Update up){
+            if(EventCheck.check()){
+                state = UserData.list.get(up.getMessage().getChat().getUserName()).getEvents();
+                event = true;
+                return UserData.list.get(up.getMessage().getChat().getUserName()).getEvents().getEvent(up);
+            }
+            if(event){
+                event = false;
+                swap(up);
+                return state.getMess(up);
+            }
+            return state.getMess(up);
+        }
+
+        public Creator(){
+            state = new Logic();
+            event = false;
+        }
+
+
+
+        public void swap(Update up){
+            Message inMess = up.getMessage();
+            String message = inMess.getText();
+            String nickname = inMess.getChat().getUserName();
+            message = message.toLowerCase();
+            switch (message){
+                case "назад":{
+                    state = new Logic();
+                    return;
+                }
+                case "экономика":{
+                    state = UserData.list.get(nickname).getEconomy();
+                    return;
+                }
+                case "армия":{
+                    state = UserData.list.get(nickname).getArmy();
+                    return;
+                }
+                case "население":{
+                    state = UserData.list.get(nickname).getPopulation();
+                }
+            }
+        }
+}

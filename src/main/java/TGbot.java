@@ -32,19 +32,25 @@ public class TGbot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         try {
             if (update.hasMessage() && update.getMessage().hasText()) {
-                Message inMess = update.getMessage();
-                String mes = inMess.getText();
-                String username = inMess.getChat().getUserName();
-                String response = logic.getMess(mes, username);
-                SendMessage outMess = new SendMessage();
-                outMess.setChatId(inMess.getChatId());
-                outMess.setText(response);
-                outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(logic.getState()));
-
-                execute(outMess);
+                execute(creatAns(update));
             }
         } catch (TelegramApiException e) {
             e.printStackTrace();
+        }
+    }
+
+    private SendMessage creatAns(Update up){
+        String nick = up.getMessage().getChat().getUserName();
+        UserData.userChange(nick);
+        Creator cr = UserData.list.get(nick).getCreator();
+        SendMessage ans = cr.getMess(up);
+        ans.setChatId(up.getMessage().getChatId());
+        if(ans.getText().equals(Messages.unknownCommand)){
+            return ans;
+        }
+        else {
+            cr.swap(up);
+            return ans;
         }
     }
 }

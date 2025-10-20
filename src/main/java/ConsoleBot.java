@@ -5,6 +5,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class ConsoleBot {
     public static void main(String[] arguments)
     {
+
         TGKeyboards Keyboards= new TGKeyboards();
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);

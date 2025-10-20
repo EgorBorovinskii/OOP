@@ -1,5 +1,6 @@
-public interface GetterMessanges {
-    public String getMess(String message, String nickname);
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
-    public void swap(String message, String nickname);
+public interface GetterMessanges {
+    public SendMessage getMess(Update up);
 }

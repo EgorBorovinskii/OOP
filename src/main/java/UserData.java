@@ -2,11 +2,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserData {
-    public class User {
-        private Economy economy;
-        private Army army;
-        private Population population;
-        private Events events;
+    public static class User {
+        private final Economy economy;
+        private final Army army;
+        private final Population population;
+        private final Events events;
+        private Creator creator;
 
         User() {
             economy = new Economy(20,  10, 10);
@@ -14,26 +15,24 @@ public class UserData {
             population = new Population(10L, 1);
             ParserJsonEvents parser = new ParserJsonEvents();
             events = parser.parse();
+            creator = new Creator();
         }
 
         public Economy getEconomy(){return this.economy;}
         public Army getArmy(){return this.army;}
         public Population getPopulation(){return this.population;}
         public Events getEvents(){return this.events;}
+        public Creator getCreator(){return creator;}
+
 
     }
-    public static User currentUser;
-    private Map<String, User> list;
-    UserData(){
-        list = new HashMap<String, User>();
-    }
+    public static Map<String, User> list = new HashMap<String, User>();
 
-    private void userAdd(String userName){
+    private static void userAdd(String userName){
         list.put(userName, new User());
-        currentUser = list.get(userName);
     }
 
-    private boolean userCheck(String userName){
+    private static boolean userCheck(String userName){
         for(String name : list.keySet()){
             if(name.equals(userName)){
                 return true;
@@ -42,16 +41,10 @@ public class UserData {
         return false;
     }
 
-    private void userSwap(String userName){
-        currentUser = list.get(userName);
-    }
-
-    public void userChange(String userName){
+    public static void  userChange(String userName){
         if(userCheck(userName)){
-            userSwap(userName);
             return;
         }
         userAdd(userName);
     }
-
 }

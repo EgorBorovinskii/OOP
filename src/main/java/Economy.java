@@ -1,6 +1,10 @@
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
+
 import java.util.Scanner;
 
-public class Economy {
+public class Economy implements GetterMessanges{
     private float money;
     private int moneyForPower;
     private int moneyForLoyality;
@@ -41,23 +45,39 @@ public class Economy {
         this.moneyForLoyality += 5;
     }
 
-    public String mainEconomy(String message)
+    public SendMessage getMess(Update up)
     {
-        Money.addMoney();
+        Message inMess = up.getMessage();
+        String message = inMess.getText();
+        String nickname = inMess.getChat().getUserName();
+        message = message.toLowerCase();
+
+        SendMessage outMess = new SendMessage();
+        Money.addMoney(nickname);
         switch (message) {
             case "/help": {
                 break;
             }
-            case "/exit": {
-                Logic.exit();
+            case "показать количество денег": {
+                outMess.setText(String.valueOf(getMoney()));
+                outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(1));
                 break;
             }
-            case "показать количество денег": {
-                return String.valueOf(getMoney());
+            case"поднять налоги":{
+                break;
+            }
+            case"назад":{
+                outMess.setText("Главное меню");
+                outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(0));
+                break;
+            }
+            default:{
+                outMess.setText(Messages.unknownCommand);
+                outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(1));
             }
         }
         EventCheck.check();
-        return Messages.unknownCommand;
+        return outMess;
     }
 }
 

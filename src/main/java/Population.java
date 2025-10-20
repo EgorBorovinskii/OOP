@@ -1,7 +1,10 @@
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
+
 import java.util.Scanner;
 
-public class Population {
-    private static Scanner in = new Scanner(System.in);
+public class Population implements GetterMessanges{
 
     private Long loyalty;
     private int loyaltyIncrease;
@@ -16,15 +19,15 @@ public class Population {
         this.loyalty += loyaltyAdd;
     }
 
-    private String increaseLoyalty()
+    private String increaseLoyalty(String nick)
     {
-        if (UserData.currentUser.getEconomy().getMoney() < UserData.currentUser.getEconomy().getMoneyForLoyality())
+        if (UserData.list.get(nick).getEconomy().getMoney() < UserData.list.get(nick).getEconomy().getMoneyForLoyality())
         {
-            return Messages.notEnoughMoney + '\n' + Messages.needMoney + ": " + UserData.currentUser.getEconomy().getMoneyForLoyality();
+            return Messages.notEnoughMoney + '\n' + Messages.needMoney + ": " + UserData.list.get(nick).getEconomy().getMoneyForLoyality();
         }
         else
         {
-            UserData.currentUser.getEconomy().buyLoyality();
+            UserData.list.get(nick).getEconomy().buyLoyality();
             loyalty += loyaltyIncrease;
             return "Успешно\nТекущая лояльность: " + String.valueOf(GetLoyalty());
         }
@@ -35,26 +38,38 @@ public class Population {
         return loyalty;
     }
 
-    public String mainPopulation(String message)
+    public SendMessage getMess(Update up)
     {
-         Money.addMoney();
+         Message inMess = up.getMessage();
+         String message = inMess.getText();
+         String nick = inMess.getChat().getUserName();
+         message = message.toLowerCase();
+
+         SendMessage outMess = new SendMessage();
+         Money.addMoney(nick);
          switch (message) {
-             case "/help": {
-                 break;
-             }
-             case "/exit": {
-                 Logic.exit();
-                 break;
-             }
              case "увеличить лояльность": {
-                 return increaseLoyalty();
+                 outMess.setText(increaseLoyalty(nick));
+                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(3));
+                 break;
              }
              case "показать уровень лояльности": {
-                 return String.valueOf(GetLoyalty());
+                 outMess.setText(String.valueOf(GetLoyalty()));
+                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(3));
+                 break;
+             }
+             case"назад":{
+                 outMess.setText("Главное меню");
+                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(0));
+                 break;
+             }
+             default: {
+                 outMess.setText(Messages.unknownCommand);
+                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(3));
              }
          }
          EventCheck.check();
-         return Messages.unknownCommand;
+         return outMess;
     }
 }
 
