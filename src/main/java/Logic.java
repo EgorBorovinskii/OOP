@@ -1,14 +1,11 @@
-import java.util.Date;
-import java.util.Scanner;
-
-public class Logic {
+public class Logic implements GetterMessanges {
     private UserData data;
     private int state;
     public Logic(){
         data = new UserData();
         state = 0;
     }
-    public String Answer(String message, String nickname) {
+    public String getMess(String message, String nickname) {
         if (message.equals("/start")) {
             return Messages.firstMessage + Messages.whatIsYourName;
         }
@@ -58,6 +55,20 @@ public class Logic {
                 return UserData.currentUser.getEvents().doEvent(message);
         }
         return Messages.unknownCommand;
+    }
+
+    public void swap(String message, String nickname){
+        switch (message) {
+            case "экономика\uD83D\uDCB0": {
+                state = 1;
+            }
+            case "армия": {
+                state = 2;
+            }
+            case "население": {
+                state = 3;
+            }
+        }
     }
 
 
