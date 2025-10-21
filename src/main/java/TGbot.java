@@ -46,6 +46,7 @@ public class TGbot extends TelegramLongPollingBot {
         SendMessage ans = cr.getMess(up);
         ans.setChatId(up.getMessage().getChatId());
         if(ans.getText().equals(Messages.unknownCommand)){
+            System.out.println(cr.getState());
             return ans;
         }
         else {
