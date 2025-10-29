@@ -21,15 +21,17 @@ public class Population implements GetterMessanges{
 
     private String increaseLoyalty(String nick)
     {
-        if (UserData.list.get(nick).getEconomy().getMoney() < UserData.list.get(nick).getEconomy().getMoneyForLoyality())
+        float curr = UserData.list.get(nick).getEconomy().getMoney();
+        float need = UserData.list.get(nick).getEconomy().getMoneyForLoyality();
+        if (curr < need)
         {
-            return Messages.notEnoughMoney + '\n' + Messages.needMoney + ": " + UserData.list.get(nick).getEconomy().getMoneyForLoyality();
+            return Messages.notEnoughMoney + '\n' + Messages.needMoney + ": " + (need - curr);
         }
         else
         {
             UserData.list.get(nick).getEconomy().buyLoyality();
             loyalty += loyaltyIncrease;
-            return "Успешно\nТекущая лояльность: " + String.valueOf(GetLoyalty());
+            return "Успешно\nТекущая лояльность: " + GetLoyalty();
         }
     }
 
@@ -68,7 +70,6 @@ public class Population implements GetterMessanges{
                  outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(3));
              }
          }
-         EventCheck.check();
          return outMess;
     }
 }

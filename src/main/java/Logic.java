@@ -14,10 +14,6 @@ public class Logic implements GetterMessanges {
         SendMessage outMess = new SendMessage();
         outMess.setChatId(inMess.getChatId());
         switch (message) {
-            case "/exit": {
-                exit();
-                break;
-            }
             case "/help": {
                 outMess.setText(Messages.helpMessage);
             }
@@ -43,11 +39,4 @@ public class Logic implements GetterMessanges {
         }
         return outMess;
     }
-
-
-    public static void exit()
-    {
-        System.exit(0);
-    }
-
 }

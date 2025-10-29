@@ -2,8 +2,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.Scanner;
-
 public class Economy implements GetterMessanges{
     private float money;
     private int moneyForPower;
@@ -29,11 +27,6 @@ public class Economy implements GetterMessanges{
     public int getMoneyForPower(){return moneyForPower;}
 
     public int getMoneyForLoyality(){return moneyForLoyality;}
-
-    private void showMoney()
-    {
-        System.out.println((int)money);
-    }
 
     public void buyPower(){
         this.money -= this.moneyForPower;
@@ -73,7 +66,6 @@ public class Economy implements GetterMessanges{
                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(1));
             }
         }
-        EventCheck.check();
         return outMess;
     }
 }
