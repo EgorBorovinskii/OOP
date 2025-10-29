@@ -7,11 +7,6 @@ public class Creator implements GetterMessanges{
         private boolean event;
 
         public SendMessage getMess(Update up){
-            if(EventCheck.check()){
-                event = true;
-                state = UserData.list.get(up.getMessage().getChat().getUserName()).getEvents();
-                return UserData.list.get(up.getMessage().getChat().getUserName()).getEvents().getEvent(up);
-            }
             event = false;
             return state.getMess(up);
         }
@@ -34,7 +29,7 @@ public class Creator implements GetterMessanges{
             String nickname = inMess.getChat().getUserName();
             message = message.toLowerCase();
             switch (message){
-                case "назад", "1", "2":{
+                case "назад":{
                     state = new Logic();
                     return;
                 }

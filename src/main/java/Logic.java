@@ -9,7 +9,7 @@ public class Logic implements GetterMessanges {
         String message = inMess.getText();
         String nickname = inMess.getChat().getUserName();
         message = message.toLowerCase();
-        UserData.userChange(nickname);
+        UserData.userChange(nickname, inMess.getChatId());
 
         SendMessage outMess = new SendMessage();
         outMess.setChatId(inMess.getChatId());

@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Events implements GetterMessanges{
+public class Events{
     private List<Event> events;
     private double maxPercent = 100;
     private double[] chance;
     private int[] zeroForEvents = {-1, -1, -1, -1};
     private int indexForZeroEvents = 0;
     private int indexEvent;
+    public long messid;
 
     public void setEvents(List<Event> events)
     {
@@ -64,7 +65,7 @@ public class Events implements GetterMessanges{
         return chance.length - 1;
     }
 
-    public SendMessage getEvent(Update up)
+    public SendMessage getEvent(long chatid)
     {
         String eventString;
         indexEvent = random();
@@ -73,15 +74,17 @@ public class Events implements GetterMessanges{
         eventString = event.getEvent() + "\n" + versions.get(0) + "\n" + versions.get(1);
 
         SendMessage outMess = new SendMessage();
+        outMess.setChatId(chatid);
         outMess.setText(eventString);
-        outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(4));
+        outMess.setReplyMarkup(TGKeyboards.inlineKeyboardMarkups.getFirst());
         return outMess;
     }
 
     public SendMessage getMess(Update up)
     {
-        Message inMess = up.getMessage();
-        String mess = inMess.getText();
+
+        Message inMess = up.getCallbackQuery().getMessage();
+        String mess = up.getCallbackQuery().getData();
         String nick = inMess.getChat().getUserName();
         mess = mess.toLowerCase();
         Money.addMoney(nick);
@@ -96,10 +99,6 @@ public class Events implements GetterMessanges{
             UserData.list.get(nick).getArmy().setPower(edit.get(2));
             outMess.setText("Выбор сделан!");
             outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(0));
-        }
-        else{
-            outMess.setText(Messages.unknownCommand);
-            outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(4));
         }
         return outMess;
     }

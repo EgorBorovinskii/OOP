@@ -1,6 +1,8 @@
 import com.google.gson.Gson;
 import com.google.gson.reflect.*;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
@@ -18,10 +20,30 @@ public class TGKeyboards {
 
     }
     public static ArrayList<ReplyKeyboardMarkup> replyKeyboardMarkups = new ArrayList<>();
+    public static ArrayList<InlineKeyboardMarkup> inlineKeyboardMarkups = new ArrayList<>();
     private static List<Keyboard> keyboards;
 
     public TGKeyboards(){
         iniKeyboards();
+    }
+
+    private  InlineKeyboardMarkup buildInlineKeyboard(){
+        InlineKeyboardMarkup inline = new InlineKeyboardMarkup();
+
+        List<List<InlineKeyboardButton>> rows = new ArrayList<>();
+
+        List<InlineKeyboardButton> row1 = new ArrayList<>();
+
+        InlineKeyboardButton button1 = new InlineKeyboardButton("1");
+        button1.setCallbackData("1");
+        InlineKeyboardButton button2 = new InlineKeyboardButton("2");
+        button2.setCallbackData("2");
+
+        row1.add(button1);
+        row1.add(button2);
+        rows.add(row1);
+        inline.setKeyboard(rows);
+        return inline;
     }
 
     private ReplyKeyboardMarkup buildKeyboard(Keyboard kb){
@@ -61,6 +83,7 @@ public class TGKeyboards {
 
     public void iniKeyboards(){
         parseKeyboards();
+        inlineKeyboardMarkups.add(buildInlineKeyboard());
 
         for(Keyboard k : keyboards){
             replyKeyboardMarkups.add(buildKeyboard(k));

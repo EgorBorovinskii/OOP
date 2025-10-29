@@ -8,14 +8,16 @@ public class UserData {
         private final Population population;
         private final Events events;
         private Creator creator;
+        private  final long chatid;
 
-        User() {
+        User(long id) {
             economy = new Economy(20,  10, 10);
             army = new Army(0L, 5);
             population = new Population(10L, 1);
             ParserJsonEvents parser = new ParserJsonEvents();
             events = parser.parse();
             creator = new Creator();
+            chatid = id;
         }
 
         public Economy getEconomy(){return this.economy;}
@@ -23,13 +25,14 @@ public class UserData {
         public Population getPopulation(){return this.population;}
         public Events getEvents(){return this.events;}
         public Creator getCreator(){return creator;}
+        public long getChatId(){return chatid;}
 
 
     }
     public static Map<String, User> list = new HashMap<String, User>();
 
-    private static void userAdd(String userName){
-        list.put(userName, new User());
+    private static void userAdd(String userName, long id){
+        list.put(userName, new User(id));
     }
 
     private static boolean userCheck(String userName){
@@ -41,10 +44,10 @@ public class UserData {
         return false;
     }
 
-    public static void  userChange(String userName){
+    public static void  userChange(String userName, long id){
         if(userCheck(userName)){
             return;
         }
-        userAdd(userName);
+        userAdd(userName, id);
     }
 }
