@@ -1,9 +1,14 @@
 public class Money {
-    private static long startTime = System.currentTimeMillis();
-    private static int moneyIncrease = 5;
-    private static float needTime = 10000;
+    private long startTime = System.currentTimeMillis();
+    private final int moneyIncrease;
+    private final float needTime;
 
-    public static void addMoney(String nick)
+    Money(int inc, int time){
+        moneyIncrease = inc;
+        needTime = time;
+    }
+
+    public void addMoney(String nick)
     {
         long endTime = System.currentTimeMillis();
         long differenceTime = endTime - startTime;

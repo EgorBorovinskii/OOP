@@ -46,7 +46,7 @@ public class Population implements GetterMessanges{
          message = message.toLowerCase();
 
          SendMessage outMess = new SendMessage();
-         Money.addMoney(nick);
+         UserData.list.get(nick).getMoney().addMoney(nick);
          switch (message) {
              case "увеличить лояльность": {
                  outMess.setText(increaseLoyalty(nick));

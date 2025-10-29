@@ -4,10 +4,12 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class Creator implements GetterMessanges{
         private GetterMessanges state;
-        private boolean event;
+        public boolean event;
 
         public SendMessage getMess(Update up){
-            event = false;
+            if(event){
+                return new SendMessage(String.valueOf(up.getMessage().getChatId()), "Выберите варинт события");
+            }
             return state.getMess(up);
         }
 

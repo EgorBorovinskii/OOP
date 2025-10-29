@@ -1,5 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class UserData {
     public static class User {
@@ -7,8 +9,9 @@ public class UserData {
         private final Army army;
         private final Population population;
         private final Events events;
-        private Creator creator;
-        private  final long chatid;
+        private final Creator creator;
+        private final long chatid;
+        private final Money money;
 
         User(long id) {
             economy = new Economy(20,  10, 10);
@@ -18,6 +21,7 @@ public class UserData {
             events = parser.parse();
             creator = new Creator();
             chatid = id;
+            money = new Money(5, 10000);
         }
 
         public Economy getEconomy(){return this.economy;}
@@ -26,10 +30,12 @@ public class UserData {
         public Events getEvents(){return this.events;}
         public Creator getCreator(){return creator;}
         public long getChatId(){return chatid;}
+        public Money getMoney(){return money;}
 
 
     }
     public static Map<String, User> list = new HashMap<String, User>();
+    public static Map<Long, Boolean> waiting = new ConcurrentHashMap<>();
 
     private static void userAdd(String userName, long id){
         list.put(userName, new User(id));
@@ -49,5 +55,12 @@ public class UserData {
             return;
         }
         userAdd(userName, id);
+    }
+
+    public static void block(String nick){
+        list.get(nick).getCreator().event = true;
+    }
+    public static void unblock(String nick){
+        list.get(nick).getCreator().event = false;
     }
 }

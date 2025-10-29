@@ -53,11 +53,8 @@ public class Economy implements GetterMessanges{
         message = message.toLowerCase();
 
         SendMessage outMess = new SendMessage();
-        Money.addMoney(nickname);
+        UserData.list.get(nickname).getMoney().addMoney(nickname);
         switch (message) {
-            case "/help": {
-                break;
-            }
             case "показать количество денег": {
                 outMess.setText(String.valueOf(getMoney()));
                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(1));

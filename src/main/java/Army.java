@@ -4,7 +4,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class Army implements GetterMessanges {
     private Long power;
-    private int powerIncrease;
+    private final int powerIncrease;
 
     Army(Long _power, int power_Increase)
     {
@@ -21,13 +21,13 @@ public class Army implements GetterMessanges {
     {
         if (UserData.list.get(nick).getEconomy().getMoney() < UserData.list.get(nick).getEconomy().getMoneyForPower())
         {
-            return Messages.notEnoughMoney + '\n' + Messages.needMoney + ": " + UserData.list.get(nick).getEconomy().getMoneyForPower();
+            return Messages.notEnoughMoney + '\n' + Messages.needMoney + ": " + (UserData.list.get(nick).getEconomy().getMoneyForPower() - UserData.list.get(nick).getEconomy().getMoney());
         }
         else
         {
             UserData.list.get(nick).getEconomy().buyPower();
             power += powerIncrease;
-            return "Успешно\nТекущая сила:" + String.valueOf(GetPower());
+            return "Успешно\nТекущая сила:" + GetPower();
         }
     }
 
@@ -43,23 +43,21 @@ public class Army implements GetterMessanges {
         String message = inMess.getText();
         String nickname = inMess.getChat().getUserName();
         message = message.toLowerCase();
-        Money.addMoney(nickname);
+        UserData.list.get(nickname).getMoney().addMoney(nickname);
 
         SendMessage outMess = new SendMessage();
-        switch (message)
-        {
+        switch (message) {
             case "увеличить силу": {
                 outMess.setText(increasePower(nickname));
                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(2));
                 break;
             }
-            case "показать уровень силы":
-            {
+            case "показать уровень силы": {
                 outMess.setText(String.valueOf(GetPower()));
                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(2));
                 break;
             }
-            case"назад":{
+            case "назад": {
                 outMess.setText("Главное меню");
                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(0));
                 break;
@@ -69,7 +67,6 @@ public class Army implements GetterMessanges {
                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(2));
             }
         }
-        EventCheck.check();
         return outMess;
     }
 }

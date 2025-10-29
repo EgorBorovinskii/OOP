@@ -87,7 +87,7 @@ public class Events{
         String mess = up.getCallbackQuery().getData();
         String nick = inMess.getChat().getUserName();
         mess = mess.toLowerCase();
-        Money.addMoney(nick);
+        UserData.list.get(nick).getMoney().addMoney(nick);
 
         SendMessage outMess = new SendMessage();
         if(mess.equals("1") || mess.equals("2")) {
@@ -100,6 +100,8 @@ public class Events{
             outMess.setText("Выбор сделан!");
             outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(0));
         }
+        UserData.waiting.put(inMess.getChatId(), false);
+        UserData.unblock(nick);
         return outMess;
     }
 }

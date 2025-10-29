@@ -1,12 +1,16 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.Map;
 
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class Sceduel {
-    private ScheduledExecutorService scheduel;
+    private final ScheduledExecutorService scheduel;
     private final AbsSender bot;
 
     Sceduel(AbsSender bot){
@@ -19,11 +23,19 @@ public class Sceduel {
     }
 
     private void sendEvents(){
-        for(UserData.User u : UserData.list.values()){
-            try {
-                u.getEvents().messid = bot.execute(u.getEvents().getEvent(u.getChatId())).getMessageId();
-            } catch (TelegramApiException e){
-                e.printStackTrace();
+        for(String nick : UserData.list.keySet()){
+            UserData.User u = UserData.list.get(nick);
+            if(UserData.waiting.getOrDefault(u.getChatId(), false)){
+                continue;
+            }
+            else {
+                try {
+                    u.getEvents().messid = bot.execute(u.getEvents().getEvent(u.getChatId())).getMessageId();
+                    UserData.block(nick);
+                    UserData.waiting.put(u.getChatId(), true);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
