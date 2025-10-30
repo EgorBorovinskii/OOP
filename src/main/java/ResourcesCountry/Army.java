@@ -1,12 +1,19 @@
+package ResourcesCountry;
+
+import Telegram.TGKeyboards;
+import UserData.UserData;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
+import GetterMessanges.*;
+import Messages.*;
 
 public class Army implements GetterMessanges {
     private Long power;
     private final int powerIncrease;
 
-    Army(Long _power, int power_Increase)
+    public Army(Long _power, int power_Increase)
     {
         this.power = _power;
         this.powerIncrease = power_Increase;

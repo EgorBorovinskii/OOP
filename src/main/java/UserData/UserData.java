@@ -1,6 +1,12 @@
+package UserData;
+
+import Event.*;
+import Money.*;
+import ResourcesCountry.*;
+import GetterMessanges.*;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserData {

@@ -1,3 +1,5 @@
+package Telegram;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -11,7 +13,6 @@ import java.util.List;
 import java.lang.reflect.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TGKeyboards {
     private class Keyboard{
@@ -72,7 +73,7 @@ public class TGKeyboards {
 
     private void parseKeyboards(){
         Gson gson = new Gson();
-        String filePath = getClass().getResource("Keyboards.json").toString().substring(5);
+        String filePath = getClass().getClassLoader().getResource("Keyboards.json").toString().substring(5);
         try (FileReader reader = new FileReader(filePath)) {
             Type listType = new TypeToken<List<Keyboard>>(){}.getType();
             keyboards = gson.fromJson(reader, listType);

@@ -1,13 +1,20 @@
+package ResourcesCountry;
+
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-public class Economy implements GetterMessanges{
+import Telegram.TGKeyboards;
+import UserData.UserData;
+import GetterMessanges.*;
+import Messages.*;
+
+public class Economy implements GetterMessanges {
     private float money;
     private int moneyForPower;
     private int moneyForLoyality;
 
-    Economy(float _money, int money_for_power, int money_for_loyality)
+    public Economy(float _money, int money_for_power, int money_for_loyality)
     {
         this.money = _money;
         this.moneyForPower = money_for_power;
@@ -54,6 +61,7 @@ public class Economy implements GetterMessanges{
                 break;
             }
             case"поднять налоги":{
+                outMess = UserData.list.get(nickname).getMoney().raiseTaxes(up);
                 break;
             }
             case"назад":{

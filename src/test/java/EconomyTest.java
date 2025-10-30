@@ -1,4 +1,4 @@
-import org.apache.http.util.Asserts;
+import ResourcesCountry.Economy;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

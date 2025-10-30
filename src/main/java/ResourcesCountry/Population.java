@@ -1,22 +1,32 @@
+package ResourcesCountry;
+
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.Scanner;
+import Telegram.TGKeyboards;
+import UserData.UserData;
+import GetterMessanges.*;
+import Messages.*;
 
-public class Population implements GetterMessanges{
+public class Population implements GetterMessanges {
 
     private Long loyalty;
     private int loyaltyIncrease;
 
-    Population(Long _loyalty, int loyalty_Increase){
+    public Population(Long _loyalty, int loyalty_Increase){
         this.loyalty = _loyalty;
         this.loyaltyIncrease = loyalty_Increase;
     }
 
     public void setLoyalty(Long loyaltyAdd)
     {
-        this.loyalty += loyaltyAdd;
+        this.loyalty = loyaltyAdd;
+    }
+
+    public Long getLoyalty()
+    {
+        return this.loyalty;
     }
 
     private String increaseLoyalty(String nick)
