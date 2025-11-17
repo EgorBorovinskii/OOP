@@ -14,19 +14,24 @@ public class Population implements GetterMessanges {
     private Long loyalty;
     private int loyaltyIncrease;
 
-    public Population(Long _loyalty, int loyalty_Increase){
-        this.loyalty = _loyalty;
-        this.loyaltyIncrease = loyalty_Increase;
+    public Population(Long loyalty, int loyaltyIncrease){
+        this.loyalty = loyalty;
+        this.loyaltyIncrease = loyaltyIncrease;
     }
 
-    public void setLoyalty(Long loyaltyAdd)
+    public void setLoyalty(Long loyalty)
     {
-        this.loyalty = loyaltyAdd;
+        this.loyalty = loyalty;
     }
 
     public Long getLoyalty()
     {
         return this.loyalty;
+    }
+
+    public void addLoyalty(Long loyaltyAdd)
+    {
+        this.loyalty += loyaltyAdd;
     }
 
     private String increaseLoyalty(String nick)
@@ -50,7 +55,7 @@ public class Population implements GetterMessanges {
         return loyalty;
     }
 
-    public SendMessage getMess(Update up)
+    public SendMessage handlerMessage(Update up)
     {
          Message inMess = up.getMessage();
          String message = inMess.getText();

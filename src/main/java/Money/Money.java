@@ -44,7 +44,7 @@ public class Money {
     {
         long endTime = System.currentTimeMillis();
         long differenceTime = endTime - startTime;
-        UserData.list.get(nick).getEconomy().setMoney(moneyIncrease * (differenceTime / needTime));
+        UserData.list.get(nick).getEconomy().addMoney(moneyIncrease * (differenceTime / needTime));
         startTime = System.currentTimeMillis();
     }
 }

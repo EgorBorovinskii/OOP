@@ -13,13 +13,18 @@ public class Army implements GetterMessanges {
     private Long power;
     private final int powerIncrease;
 
-    public Army(Long _power, int power_Increase)
+    public Army(Long power, int powerIncrease)
     {
-        this.power = _power;
-        this.powerIncrease = power_Increase;
+        this.power = power;
+        this.powerIncrease = powerIncrease;
     }
 
-    public void setPower(Long powerAdd)
+    public void setPower(Long power)
+    {
+        this.power = power;
+    }
+
+    public void addPower(Long powerAdd)
     {
         this.power += powerAdd;
     }
@@ -34,16 +39,16 @@ public class Army implements GetterMessanges {
         {
             UserData.list.get(nick).getEconomy().buyPower();
             power += powerIncrease;
-            return "Успешно\nТекущая сила:" + GetPower();
+            return "Успешно\nТекущая сила:" + getPower();
         }
     }
 
-    private long GetPower()
+    public long getPower()
     {
-        return power;
+        return this.power;
     }
 
-    public SendMessage getMess(Update up)
+    public SendMessage handlerMessage(Update up)
     {
 
         Message inMess = up.getMessage();
@@ -60,7 +65,7 @@ public class Army implements GetterMessanges {
                 break;
             }
             case "показать уровень силы": {
-                outMess.setText(String.valueOf(GetPower()));
+                outMess.setText(String.valueOf(getPower()));
                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(2));
                 break;
             }

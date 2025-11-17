@@ -18,7 +18,7 @@ public class Sceduel {
     }
 
     public void startEvents(){
-        scheduel.scheduleAtFixedRate(this::sendEvents, 1, 1, TimeUnit.MINUTES);
+        //scheduel.scheduleAtFixedRate(this::sendEvents, 1, 1, TimeUnit.MINUTES);
     }
 
     private void sendEvents(){

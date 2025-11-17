@@ -17,9 +17,11 @@ public class UserData {
         private final Events events;
         private final Creator creator;
         private final long chatid;
+        private long opponentID;
+        private String sessionID;
         private final Money money;
 
-        User(long id) {
+        public User(long id) {
             economy = new Economy(20,  10, 10);
             army = new Army(0L, 5);
             population = new Population(10L, 1);
@@ -37,8 +39,11 @@ public class UserData {
         public Creator getCreator(){return creator;}
         public long getChatId(){return chatid;}
         public Money getMoney(){return money;}
+        public long getOpponentID(){return this.opponentID;}
+        public String getSessionID(){return this.sessionID;}
 
-
+        public void setOpponentID(long opponentID){this.opponentID = opponentID;}
+        public void setSessionID(String sessionID){this.sessionID = sessionID;}
     }
     public static Map<String, User> list = new HashMap<String, User>();
     public static Map<Long, Boolean> waiting = new ConcurrentHashMap<>();

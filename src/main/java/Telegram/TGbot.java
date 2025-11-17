@@ -1,5 +1,6 @@
 package Telegram;
 
+import Configurations.AppSettings;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -12,8 +13,8 @@ import Messages.*;
 
 
 public class TGbot extends TelegramLongPollingBot {
-    final private String BOT_TOKEN = "8465877064:AAHSnu0oOhuoK9po3iHLQvaTFW4srGYmvo4";
-    final private String BOT_NAME = "FoEmpire_bot";
+    final private String BOT_TOKEN = AppSettings.getInstance().telegramToken;
+    final private String BOT_NAME = AppSettings.getInstance().telegramBotName;
     private Sceduel sceduel;
 
     public TGbot() {
@@ -49,9 +50,9 @@ public class TGbot extends TelegramLongPollingBot {
         String nick = up.getMessage().getChat().getUserName();
         UserData.userChange(nick, up.getMessage().getChatId());
         Creator cr = UserData.list.get(nick).getCreator();
-        SendMessage ans = cr.getMess(up);
+        SendMessage ans = cr.handlerMessage(up);
         ans.setChatId(up.getMessage().getChatId());
-        if(ans.getText().equals(Messages.unknownCommand)){
+        if(ans.getText() != null && ans.getText().equals(Messages.unknownCommand)){
             System.out.println(cr.getState());
             return ans;
         }

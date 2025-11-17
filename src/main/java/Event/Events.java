@@ -30,6 +30,8 @@ public class Events{
         return this.events;
     }
 
+    public double[] getChance(){return  this.chance;}
+
     public void fillingChance()
     {
         int countEvents = events.size();
@@ -98,9 +100,9 @@ public class Events{
             int version = Integer.parseInt(mess);
             Event event = events.get(indexEvent);
             List<Long> edit = event.getEdit().get(version - 1);
-            UserData.list.get(nick).getEconomy().setMoney(edit.get(0));
-            UserData.list.get(nick).getPopulation().setLoyalty(edit.get(1));
-            UserData.list.get(nick).getArmy().setPower(edit.get(2));
+            UserData.list.get(nick).getEconomy().addMoney(edit.get(0));
+            UserData.list.get(nick).getPopulation().addLoyalty(edit.get(1));
+            UserData.list.get(nick).getArmy().addPower(edit.get(2));
             outMess.setText("Выбор сделан!");
             outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(0));
         }
