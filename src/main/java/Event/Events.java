@@ -1,15 +1,24 @@
+package Event;
+
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
+
+import Telegram.*;
+import UserData.*;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
-public class Events {
+public class Events{
     private List<Event> events;
     private double maxPercent = 100;
     private double[] chance;
     private int[] zeroForEvents = {-1, -1, -1, -1};
     private int indexForZeroEvents = 0;
     private int indexEvent;
+    public long messid;
 
     public void setEvents(List<Event> events)
     {
@@ -20,6 +29,8 @@ public class Events {
     {
         return this.events;
     }
+
+    public double[] getChance(){return  this.chance;}
 
     public void fillingChance()
     {
@@ -60,29 +71,43 @@ public class Events {
         return chance.length - 1;
     }
 
-    public String getEvent()
+    public SendMessage getEvent(long chatid)
     {
         String eventString;
         indexEvent = random();
         Event event = events.get(indexEvent);
         List<String> versions = event.getVersions();
         eventString = event.getEvent() + "\n" + versions.get(0) + "\n" + versions.get(1);
-        return eventString;
+
+        SendMessage outMess = new SendMessage();
+        outMess.setChatId(chatid);
+        outMess.setText(eventString);
+        outMess.setReplyMarkup(TGKeyboards.inlineKeyboardMarkups.getFirst());
+        return outMess;
     }
 
-    public String doEvent(String mess)
+    public SendMessage getMess(Update up)
     {
+
+        Message inMess = up.getCallbackQuery().getMessage();
+        String mess = up.getCallbackQuery().getData();
+        String nick = inMess.getChat().getUserName();
+        mess = mess.toLowerCase();
+        UserData.list.get(nick).getMoney().addMoney(nick);
+
+        SendMessage outMess = new SendMessage();
         if(mess.equals("1") || mess.equals("2")) {
             int version = Integer.parseInt(mess);
             Event event = events.get(indexEvent);
             List<Long> edit = event.getEdit().get(version - 1);
-            UserData.currentUser.getEconomy().setMoney(edit.get(0));
-            UserData.currentUser.getPopulation().setLoyalty(edit.get(1));
-            UserData.currentUser.getArmy().setPower(edit.get(2));
-            return "Выбор сделан!";
+            UserData.list.get(nick).getEconomy().addMoney(edit.get(0));
+            UserData.list.get(nick).getPopulation().addLoyalty(edit.get(1));
+            UserData.list.get(nick).getArmy().addPower(edit.get(2));
+            outMess.setText("Выбор сделан!");
+            outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(0));
         }
-        else{
-            return Messages.unknownCommand;
-        }
+        UserData.waiting.put(inMess.getChatId(), false);
+        UserData.unblock(nick);
+        return outMess;
     }
 }

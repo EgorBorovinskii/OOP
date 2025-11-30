@@ -1,3 +1,5 @@
+package Messages;
+
 public class Messages {
     public static String firstMessage = "Привет! Это игра с твоим другом. \n" +
             "Ты должен развивать свою страну, чтобы выиграть. \n" +
