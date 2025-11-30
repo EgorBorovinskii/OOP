@@ -44,6 +44,11 @@ public class Logic implements GetterMessanges {
                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(3));
                 break;
             }
+            case "взаимодействие с противником":{
+                outMess.setText("Что вы хотите сделать?");
+                outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.getLast());
+                break;
+            }
             case "посмотреть ресурсы противника":{
                 try
                 {
