@@ -80,6 +80,10 @@ public class Creator implements GetterMessanges {
                 }
                 case "население":{
                     state = UserData.list.get(nickname).getPopulation();
+                    return;
+                }
+                case "выйти из игры":{
+                    state = new MainMenu();
                 }
             }
         }

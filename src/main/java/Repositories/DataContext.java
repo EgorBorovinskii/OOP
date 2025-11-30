@@ -5,7 +5,7 @@ import Configurations.AppSettings;
 import java.sql.*;
 
 public class DataContext {
-    private static String connectionUrl = AppSettings.getInstance().databaseConnectionUrl;
+    private static final String connectionUrl = AppSettings.getInstance().databaseConnectionUrl;
     private static Connection connection;
 
     public DataContext() {}
@@ -27,6 +27,7 @@ public class DataContext {
     public long insert(String sql) throws SQLException
     {
         PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+        int rows = stmt.executeUpdate();
         ResultSet resultSet = stmt.getGeneratedKeys();
         return resultSet.getLong(1);
     }
