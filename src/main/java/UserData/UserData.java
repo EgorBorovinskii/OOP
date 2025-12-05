@@ -4,7 +4,6 @@ import Event.*;
 import Money.*;
 import ResourcesCountry.*;
 import GetterMessanges.*;
-import UsersInteraction.Usersinteraction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +20,6 @@ public class UserData {
         private long opponentID;
         private String sessionID;
         private final Money money;
-        private final Usersinteraction inter;
 
         public User(long id) {
             economy = new Economy(20,  10, 10);
@@ -32,7 +30,6 @@ public class UserData {
             creator = new Creator();
             chatid = id;
             money = new Money(5, 10000);
-            inter = new Usersinteraction();
         }
 
         public Economy getEconomy(){return this.economy;}
@@ -44,7 +41,6 @@ public class UserData {
         public Money getMoney(){return money;}
         public long getOpponentID(){return this.opponentID;}
         public String getSessionID(){return this.sessionID;}
-        public Usersinteraction getUserinteraction(){return this.inter;}
 
         public void setOpponentID(long opponentID){this.opponentID = opponentID;}
         public void setSessionID(String sessionID){this.sessionID = sessionID;}
