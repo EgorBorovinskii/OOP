@@ -1,6 +1,7 @@
 import Repositories.DataContext;
 import Telegram.TGKeyboards;
 import Telegram.TGbot;
+import UserData.UserData;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
@@ -14,7 +15,9 @@ public class ConsoleBot {
             DataContext.obtainDatabase();
             TGKeyboards Keyboards = new TGKeyboards();
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            telegramBotsApi.registerBot(new TGbot());
+            TGbot telegramBot = new TGbot();
+            UserData.setBot(telegramBot);
+            telegramBotsApi.registerBot(telegramBot);
         }
         catch (SQLException e)
         {
