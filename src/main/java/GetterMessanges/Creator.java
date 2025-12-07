@@ -6,6 +6,7 @@ import Repositories.UsersRepository;
 import ResourcesCountry.Logic;
 import UserData.UserData;
 import DataModels.UserDto;
+import UsersInteraction.EndGame;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -87,6 +88,7 @@ public class Creator implements GetterMessanges {
                     return;
                 }
                 case "выйти из игры":{
+                    EndGame.endGame(up);
                     state = new MainMenu();
                 }
             }

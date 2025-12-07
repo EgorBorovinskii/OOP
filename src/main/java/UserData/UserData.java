@@ -89,11 +89,20 @@ public class UserData {
 
     public static void compareWithBD(UserDto user){
         for(Map.Entry<String, User> entry: list.entrySet()){
-            if(entry.getValue().getChatId() == user.id){
+            if(entry.getValue().getChatId() == user.telegramID){
                 User u = list.get(entry.getKey());
                 u.getEconomy().setMoney(user.money);
                 u.getArmy().setPower(user.power);
                 u.getPopulation().setLoyalty(user.loyalty);
+                break;
+            }
+        }
+    }
+
+    public static void deleteUser(UserDto user){
+        for(Map.Entry<String, User> entry: list.entrySet()){
+            if(entry.getValue().getChatId() == user.telegramID){
+                list.remove(entry.getKey());
                 break;
             }
         }
