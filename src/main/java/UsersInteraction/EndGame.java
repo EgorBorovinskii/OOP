@@ -30,6 +30,13 @@ public class EndGame {
             UserDto user = UsersRepository.getByTelegramID(dataContext, UserData.list.get(nickname).getChatId());
             UserDto opponent = UsersRepository.getByTelegramID(dataContext, UserData.list.get(nickname).getOpponentID());
 
+            if(opponent == null){
+                Long sessionId = SessionsRepository.getSessionIDbyUser(dataContext, user);
+                SessionsRepository.delete(dataContext, sessionId);
+                UsersRepository.deleteByTelegramID(dataContext, user.telegramID);
+                UserData.deleteUser(user);
+                return;
+            }
             Long sessionId = SessionsRepository.getSessionIDbyUser(dataContext, user);
             SessionsRepository.delete(dataContext, sessionId);
             UsersRepository.deleteByTelegramID(dataContext, user.telegramID);

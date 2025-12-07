@@ -43,6 +43,7 @@ public class Creator implements GetterMessanges {
             String message = inMess.getText();
             String nickname = inMess.getChat().getUserName();
             message = message.toLowerCase();
+
             float money = UserData.list.get(nickname).getEconomy().getMoney();
             long power = UserData.list.get(nickname).getArmy().getPower();
             long loyalty = UserData.list.get(nickname).getPopulation().getLoyalty();

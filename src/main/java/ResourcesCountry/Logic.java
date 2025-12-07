@@ -49,37 +49,9 @@ public class Logic implements GetterMessanges {
                 outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.getLast());
                 break;
             }
-            case "посмотреть ресурсы противника":{
-                try
-                {
-                    DataContext dataContext = new DataContext();
-                    UserDto userDto = UsersRepository.getByTelegramID(dataContext, UserData.list.get(nickname).getOpponentID());
-                    String resourcesText = userDto.getResourcesText();
-                    outMess.setText(resourcesText);
-                    outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.getFirst());
-                }
-                catch (SQLException e)
-                {
-                    e.printStackTrace();
-                    outMess.setText("Произошла ошибка");
-                }
-                break;
-            }
             case "выйти из игры":{
-                try
-                {
-                    DataContext dataContext = new DataContext();
-                    SessionsRepository.delete(dataContext, Long.parseLong(UserData.list.get(nickname).getSessionID()));
-                    UsersRepository.deleteByTelegramID(dataContext, UserData.list.get(nickname).getChatId());
-                    UsersRepository.deleteByTelegramID(dataContext, UserData.list.get(nickname).getOpponentID());
-                    outMess.setText("Игра завершена");
-                    outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(5));
-                }
-                catch (SQLException e)
-                {
-                    e.printStackTrace();
-                    outMess.setText("Произошла ошибка");
-                }
+                outMess.setText("Игра завершена");
+                outMess.setReplyMarkup(TGKeyboards.replyKeyboardMarkups.get(5));
                 break;
             }
             default:{

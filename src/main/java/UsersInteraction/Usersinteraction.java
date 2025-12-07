@@ -65,7 +65,7 @@ public class Usersinteraction implements GetterMessanges {
                 }
                 break;
             }
-            case "поставить ультиматум(у вас должно быть 500 денег)": {
+            case "поставить ультиматум(у вас должно быть 250 денег)": {
                 if (System.currentTimeMillis() - ultimatunCooldown > 240000) {
                     outMess = ultimatum(up);
                     ultimatunCooldown = System.currentTimeMillis();
@@ -167,13 +167,13 @@ public class Usersinteraction implements GetterMessanges {
             UserDto user = UsersRepository.getByTelegramID(dataContext, UserData.list.get(nickname).getChatId());
             UserDto opponent = UsersRepository.getByTelegramID(dataContext, UserData.list.get(nickname).getOpponentID());
 
-            if(user.money < 500){
+            if(user.money < 250){
                 outMess.setText("Недостаточно денег");
                 return  outMess;
             }
 
-            float userCoef = user.power * 2 + user.loyalty * 3 + (user.money - 500) / 2;
-            float opponentCoef = opponent.power * 2 + opponent.loyalty * 3 + opponent.money / 2;
+            float userCoef = user.power * 2 + user.loyalty * 3 + (user.money - 500) / 15;
+            float opponentCoef = opponent.power * 2 + opponent.loyalty * 3 + opponent.money / 15;
 
             if(userCoef > opponentCoef){
                 outMess = userWinner(up, user, opponent);
@@ -300,7 +300,7 @@ public class Usersinteraction implements GetterMessanges {
     private static SendMessage userWinner(Update up, UserDto user, UserDto opponent){
         SendMessage outMess = new SendMessage();
         outMess.setChatId(up.getMessage().getChatId());
-        outMess.setText("Вы объявили ультиматум и так как вы намного сильнее своего противника ему ничего не отсается кроме как сдаться\nВы победили!");
+        outMess.setText(Messages.ultWin);
 
         SendMessage oppNotice = new SendMessage();
         oppNotice.setChatId(opponent.telegramID);
@@ -318,7 +318,7 @@ public class Usersinteraction implements GetterMessanges {
     private static SendMessage userLooser(Update up, UserDto user, UserDto opponent){
         SendMessage outMess = new SendMessage();
         outMess.setChatId(up.getMessage().getChatId());
-        outMess.setText("Вы объявили ультиматум, вот только ваш противник оказался намного сильнее вас и теперь вы навсегда покрыты позором\nВы проиграли...");
+        outMess.setText(Messages.ultLose);
 
         SendMessage oppNotice = new SendMessage();
         oppNotice.setChatId(opponent.telegramID);
