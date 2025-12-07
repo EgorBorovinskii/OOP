@@ -1,6 +1,7 @@
 package Telegram;
 
 import Configurations.AppSettings;
+import UsersInteraction.Usersinteraction;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -52,7 +53,7 @@ public class TGbot extends TelegramLongPollingBot {
         Creator cr = UserData.list.get(nick).getCreator();
         SendMessage ans = cr.handlerMessage(up);
         ans.setChatId(up.getMessage().getChatId());
-        if(ans.getText() != null && ans.getText().equals(Messages.unknownCommand) && ans.getText().equals("n")){
+        if(ans.getText() != null && (ans.getText().equals(Messages.unknownCommand) || ans.getText().equals(Messages.ultLose) || ans.getText().equals(Messages.ultWin))){
             System.out.println(cr.getState());
             return ans;
         }

@@ -1,15 +1,23 @@
 package UserData;
 
+import DataModels.UserDto;
 import Event.*;
 import Money.*;
 import ResourcesCountry.*;
 import GetterMessanges.*;
+import UsersInteraction.Usersinteraction;
+import org.telegram.telegrambots.meta.bots.AbsSender;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserData {
+    public static AbsSender bot;
+
+    public static void setBot(AbsSender botik){
+        bot = botik;
+    }
     public static class User {
         private final Economy economy;
         private final Army army;
@@ -20,6 +28,7 @@ public class UserData {
         private long opponentID;
         private String sessionID;
         private final Money money;
+        private final Usersinteraction inter;
 
         public User(long id) {
             economy = new Economy(20,  10, 10);
@@ -30,6 +39,7 @@ public class UserData {
             creator = new Creator();
             chatid = id;
             money = new Money(5, 10000);
+            inter = new Usersinteraction();
         }
 
         public Economy getEconomy(){return this.economy;}
@@ -41,10 +51,12 @@ public class UserData {
         public Money getMoney(){return money;}
         public long getOpponentID(){return this.opponentID;}
         public String getSessionID(){return this.sessionID;}
+        public Usersinteraction getUserinteraction(){return this.inter;}
 
         public void setOpponentID(long opponentID){this.opponentID = opponentID;}
         public void setSessionID(String sessionID){this.sessionID = sessionID;}
     }
+
     public static Map<String, User> list = new HashMap<String, User>();
     public static Map<Long, Boolean> waiting = new ConcurrentHashMap<>();
 
@@ -73,5 +85,26 @@ public class UserData {
     }
     public static void unblock(String nick){
         list.get(nick).getCreator().event = false;
+    }
+
+    public static void compareWithBD(UserDto user){
+        for(Map.Entry<String, User> entry: list.entrySet()){
+            if(entry.getValue().getChatId() == user.telegramID){
+                User u = list.get(entry.getKey());
+                u.getEconomy().setMoney(user.money);
+                u.getArmy().setPower(user.power);
+                u.getPopulation().setLoyalty(user.loyalty);
+                break;
+            }
+        }
+    }
+
+    public static void deleteUser(UserDto user){
+        for(Map.Entry<String, User> entry: list.entrySet()){
+            if(entry.getValue().getChatId() == user.telegramID){
+                list.remove(entry.getKey());
+                break;
+            }
+        }
     }
 }

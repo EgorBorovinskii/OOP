@@ -1,6 +1,7 @@
 package Repositories;
 
 import DataModels.Session;
+import DataModels.UserDto;
 
 import java.sql.*;
 import java.text.MessageFormat;
@@ -51,5 +52,10 @@ public class SessionsRepository {
     {
         String sql = MessageFormat.format("DELETE FROM session WHERE id = {0}", String.valueOf(id));
         dataContext.execute(sql);
+    }
+    public static Long getSessionIDbyUser(DataContext dataContext, UserDto user) throws SQLException{
+        String sql = MessageFormat.format("SELECT id FROM session WHERE playerOneID = {0} OR playerTwoID = {0}", String.valueOf(user.telegramID));
+        ResultSet id = dataContext.select(sql);
+        return id.getLong("id");
     }
 }

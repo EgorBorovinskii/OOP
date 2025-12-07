@@ -6,6 +6,7 @@ import Repositories.UsersRepository;
 import ResourcesCountry.Logic;
 import UserData.UserData;
 import DataModels.UserDto;
+import UsersInteraction.EndGame;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -42,6 +43,7 @@ public class Creator implements GetterMessanges {
             String message = inMess.getText();
             String nickname = inMess.getChat().getUserName();
             message = message.toLowerCase();
+
             float money = UserData.list.get(nickname).getEconomy().getMoney();
             long power = UserData.list.get(nickname).getArmy().getPower();
             long loyalty = UserData.list.get(nickname).getPopulation().getLoyalty();
@@ -82,7 +84,12 @@ public class Creator implements GetterMessanges {
                     state = UserData.list.get(nickname).getPopulation();
                     return;
                 }
+                case "взаимодействие с противником":{
+                    state = UserData.list.get(nickname).getUserinteraction();
+                    return;
+                }
                 case "выйти из игры":{
+                    EndGame.endGame(up);
                     state = new MainMenu();
                 }
             }
